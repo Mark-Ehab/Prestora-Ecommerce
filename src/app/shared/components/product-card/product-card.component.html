@@ -1,0 +1,87 @@
+<div class="product-card group/parent relative">
+  <span
+    class="bg-bg-main size-8.75 p-1 rounded-xl flex justify-center items-center border border-main group absolute top-[1.1687rem] right-5 z-10"
+    (click)="toggleFavBtnOnClick()"
+    (pointerenter)="fillFavBtnOnMouseEnter()"
+    (pointerleave)="emptyFavBtnOnMouseLeave()"
+    ><i
+      [class]="{
+        'far':this.isAddToFavBtnClicked === false || this.isAddToFavBtnHovered === false,
+        'fas':this.isAddToFavBtnClicked === true || this.isAddToFavBtnHovered === true,
+      }"
+      class="fa-heart text-main fa-xl"
+    ></i
+  ></span>
+  <div [routerLink]="['/productdetails', slug, id]">
+    <figure class="relative px-3 pt-3 h-[200px]">
+      <div
+        class="border border-gray-200 shadow-[0_0_2px] shadow-main rounded-[.625rem] h-full overflow-hidden"
+      >
+        <img
+          class="group-hover/parent:scale-120 duration-500 transition-all object-fill w-full h-full"
+          [src]="imgSrc"
+          [alt]="title"
+        />
+      </div>
+      <figure
+        class="rounded-lg w-15 max-h-8 h-8 overflow-hidden absolute top-5 left-5"
+      >
+        <img
+          [src]="brandImgSrc"
+          [alt]="brandName"
+          class="size-full object-fill"
+        />
+        <div class="bg-main/40 absolute top-0 left-0 size-full"></div>
+      </figure>
+      @if (priceAfterDiscount) {
+      <div
+        class="absolute bottom-3 right-5 left-5 flex justify-between items-center"
+      >
+        <span
+          class="bg-main text-white text-sm font-bold min-h-6 min-w-7 py-1 px-2 rounded-lg"
+          >- {{ (100 - (priceAfterDiscount / price) * 100).toFixed(0) }}%</span
+        >
+        <span
+          class="bg-main text-white text-sm font-bold min-h-6 min-w-7 py-1 px-2 rounded-lg"
+          >on sale</span
+        >
+      </div>
+      }
+    </figure>
+    <div class="px-3 pt-[.625rem]">
+      <h5
+        class="mb-2 text-lg xl:text-[1rem] font-bold tracking-tight text-text-main line-clamp-1"
+      >
+        {{ title.split(" ", 3).join(" ") }}
+      </h5>
+      <div class="flex justify-between items-center mb-2">
+        @if (priceAfterDiscount) {
+        <div class="flex gap-0.75 items-center">
+          <span class="block font-bold text-lg text-main"
+            ><span class="font-light">£</span>{{ priceAfterDiscount }}</span
+          >
+          <span class="block text-xs text-text-3rd line-through"
+            >£{{ price }}</span
+          >
+        </div>
+        } @else {
+        <span class="block font-bold text-lg text-main"
+          ><span class="font-light">£</span>{{ price }}</span
+        >
+        }
+        <div class="flex items-center gap-1 bg-bg-main rounded-md p-1">
+          <div class="flex justify-center items-center">
+            <span class="fa-solid fa-star text-review fa-2xs"></span>
+            <span class="text-[.8125rem] font-medium">{{ rate }}</span>
+          </div>
+          <span class="text-text-3rd text-[.75rem]">({{ quantity }})</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pb-[.625rem] px-3">
+    <button class="add-to-cart-btn" type="button">
+      <i class="fas fa-shopping-cart block me-1"></i> Add to Cart
+    </button>
+  </div>
+</div>

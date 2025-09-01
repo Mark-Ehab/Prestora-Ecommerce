@@ -1,0 +1,137 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Import TailwindCSS */
+@use "tailwindcss";
+
+/* Import Flowbite */
+@use "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+/* Import Ng Owl Carousel Styles */
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
+
+/* Custom Styles */
+@theme
+{
+    --color-main:#895932;
+    --color-2nd:#9B7E5C;
+    --color-text-main:#090F41;
+    --color-text-2nd:#9D9DAA;
+    --color-text-3rd:#C0C0C0;
+    --color-bg-main:#F6F6F6;
+    --color-bg-card-color:#FFFFFF;
+    --color-bg-footer:#2E2E2E;
+    --color-review:#FFC000;
+    --color-error:#D00439;
+}
+
+@utility custom-container {
+  width: 100%;
+  padding-right: calc(1.5rem * 0.5);
+  padding-left: calc(1.5rem * 0.5);
+  margin-right: auto;
+  margin-left: auto;
+  @apply sm:max-w-[33.75rem] md:max-w-[45rem] lg:max-w-[60rem] xl:max-w-[71.25rem]
+}
+
+@layer component {
+  .navlink 
+  {
+    @apply block text-text-2nd py-2 px-3 text-text-2nd rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:!text-main md:p-0 relative
+  }
+
+  .navlinkactive 
+  {
+    @apply bg-main !text-white hover:!bg-main md:bg-transparent md:!text-main md:hover:text-main  md:hover:!bg-transparent transition-colors duration-500 md:after:w-full md:after:h-[.1563rem] md:after:bg-main   md:after:absolute md:after:left-0 md:after:top-[180%]
+  }
+
+  .product-card
+  {
+    @apply bg-white border border-gray-200 rounded-[.625rem] shadow-[0_0_8px] shadow-main cursor-pointer overflow-hidden max-w-[18.75rem] mx-auto sm:min-w-0 sm:mx-0 
+  }
+
+  .add-to-cart-btn
+  {
+    @apply inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-main rounded-lg hover:bg-[#573311] focus:ring-4 focus:outline-none w-full justify-center
+  }
+
+  .auth-btn
+  {
+    @apply w-full mb-6 bg-main rounded-full text-white p-2 text-xl hover:bg-2nd cursor-pointer disabled:bg-2nd
+  }
+
+  .pagenotfound-btn
+  {
+    @apply mb-6 bg-main rounded-lg font-medium text-white p-2 text-[1rem] hover:bg-2nd/50 cursor-pointer disabled:bg-2nd
+  }
+
+  .home-section-heading
+  {
+    @apply text-text-2nd text-[1rem] sm:text-lg md:text-2xl w-fit after:w-full after:h-[.1563rem] after:bg-main after:absolute after:left-0 after:top-[121.5%] relative 
+  }
+
+  .auth-form-input{
+    @apply bg-white w-full rounded-lg border-[.0938rem] border-white focus:outline-none focus:ring-main px-10 
+  }
+
+  .auth-form-input-label{
+    @apply text-[1.125rem] text-text-main font-medium mb-2 block text-text-main 
+  }
+}
+
+body{
+  font-family: 'Poppins', sans-serif;
+}
+
+.owl-theme .owl-dots .owl-dot.active span{
+  background-color: #8B5E35;
+}
+
+.owl-theme .owl-dots .owl-dot span{
+  width:1.25rem;
+  height:.3125rem;
+}
+
+.owl-theme .owl-nav.disabled + .owl-dots {
+    margin-top: 0;
+    position: absolute;
+    left:0;
+    right: 0;
+    bottom: 0;
+}
+
+.owl-theme .owl-nav [class*=owl-] {
+    color: #8B5E35;;
+    font-size: .875rem;
+    margin: .3125rem;
+    padding: .9375rem .9375rem;
+    background-color: white;
+    border-color: #8B5E35;
+    border-width: 1px;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.3s background-color ;
+}
+
+.owl-theme .owl-nav [class*=owl-]:hover {
+    background-color: #8B5E35;
+}
+
+.owl-theme .owl-nav {
+    display: flex;
+    position: absolute;
+    left: -5%;
+    right: -5%;
+    top: 16%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+    z-index: -1;
+}
+

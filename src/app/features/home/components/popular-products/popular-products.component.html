@@ -1,0 +1,33 @@
+<section class="pb-20">
+  <div class="border-b border-text-3rd mb-10">
+    <div class="flex justify-between items-center mb-2">
+      <h2 class="home-section-heading">
+        Grab the best deals on <span class="text-main">Popular Products</span>
+      </h2>
+      <a
+        routerLink="/products"
+        class="text-sm text-text-2nd font-medium cursor-ponter"
+        >View All <i class="fas fa-angle-right text-main"></i
+      ></a>
+    </div>
+  </div>
+  <div
+    class="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+  >
+    @for (product of allProducts; track product.id) {
+    @if(product.priceAfterDiscount) {
+    <product-card
+      [id]="product.id"
+      [title]="product.title"
+      [slug]="product.slug"
+      [imgSrc]="product.imageCover"
+      [brandImgSrc]="product.brand.image"
+      [brandName]="product.brand.name"
+      [quantity]="product.quantity"
+      [rate]="product.ratingsAverage"
+      [price]="product.price"
+      [priceAfterDiscount]="product.priceAfterDiscount"
+    />
+    } }
+  </div>
+</section>

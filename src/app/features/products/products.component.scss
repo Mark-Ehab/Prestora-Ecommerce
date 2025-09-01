@@ -1,0 +1,11 @@
+  .my-pagination ::ng-deep .ngx-pagination .current {
+    background-color: #8B5E35;
+    border-radius: 50%;
+    width:1.875rem;
+    height:1.875rem;
+    text-align: center;
+  }
+  
+  .my-pagination ::ng-deep .ngx-pagination li:not(.current) a{
+    border-radius: 50%;
+  }

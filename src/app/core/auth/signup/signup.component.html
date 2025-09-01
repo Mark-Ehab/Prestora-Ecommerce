@@ -1,0 +1,130 @@
+<!-- Angular Template Engine Variables for Signup Component -->
+@let nameControl = registerForm.get("name"); @let emailControl =
+registerForm.get("email"); @let passwordControl = registerForm.get("password");
+@let rePasswordControl = registerForm.get("rePassword"); @let phoneControl =
+registerForm.get("phone");
+
+<section id="signup" class="p-5 bg-bg-main flex items-center justify-center">
+  <div
+    class="grid grid-cols-12 shadow-[0_0_8px_rgba(0,0,0,0.5)] max-w-[68.75rem] lg:mx-auto"
+  >
+    <div class="col-span-12 md:col-span-6 p-10">
+      <h2 class="font-semibold text-[2rem] text-text-main text-center">
+        Create an Account
+      </h2>
+      <p class="text-[1.125rem] text-text-2nd mb-6 text-center">
+        Create a new account
+      </p>
+      <form action="" [formGroup]="registerForm" (ngSubmit)="submitForm()">
+        <input-field
+          [label]="'Username'"
+          [type]="'text'"
+          [id]="'name'"
+          [name]="'name'"
+          [control]="nameControl"
+          [placeholder]="'Ex: Mark'"
+        ></input-field>
+        <input-field
+          [label]="'E-mail'"
+          [type]="'email'"
+          [id]="'email'"
+          [name]="'email'"
+          [control]="emailControl"
+          [placeholder]="'Ex: example@example.com'"
+        ></input-field>
+        <input-field
+          [label]="'Password'"
+          [id]="'password'"
+          [name]="'password'"
+          [control]="passwordControl"
+          [placeholder]="'xxxxxxxxxxxxx'"
+        >
+          <p class="mb-1">Password must contain the following:</p>
+          <ul class="list-none">
+            <li>
+              <i class="fa-solid fa-circle-info text-error"></i> At least one
+              capital alphabetic character
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-info text-error"></i> At least one
+              small alphabetic character
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-info text-error"></i> At least one
+              special character (e.g., ! @ # ?)
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-info text-error"></i> At least 6
+              characters
+            </li>
+          </ul>
+        </input-field>
+        <input-field
+          [label]="'Confirm Password'"
+          [id]="'rePassword'"
+          [name]="'rePassword'"
+          [control]="rePasswordControl"
+          [placeholder]="'xxxxxxxxxxxxx'"
+        ></input-field>
+        <input-field
+          [label]="'Phone'"
+          [type]="'tel'"
+          [id]="'phone'"
+          [name]="'phone'"
+          [control]="phoneControl"
+          [placeholder]="'Ex: +201234567890'"
+        >
+          <i class="fa-solid fa-circle-info text-error"></i> Phone must be an
+          egyptian nubmer (e.g. (+)201-(0|1|2|5)-XXXXXXXX)</input-field
+        >
+        <div class="flex justify-between mb-4">
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="rememberme"
+              name="rememberme"
+              class="me-2 accent-main p-2 rounded border border-main focus:outline-none focus:ring-main"
+            />
+            <label for="rememberme" class="text-text-2nd text-[.9375rem]"
+              >I agree to the
+              <a routerLink="login" class="text-main underline cursor-pointer"
+                >Terms of Conditions</a
+              ></label
+            >
+          </div>
+        </div>
+        <button class="auth-btn" type="submit">
+          Sign Up @if(isLoading){<i class="fas fa-spinner fa-spin"></i>}
+        </button>
+        <p class="text-text-2nd text-[.9375rem] text-center mb-6">
+          Already have on account?
+          <a routerLink="/login" class="text-main underline cursor-pointer"
+            >Log In.</a
+          >
+        </p>
+      </form>
+      @if (errMsg) {
+      <alert
+        ><div class="text-center">{{ errMsg }}</div></alert
+      >
+      } @else if(successMsg){
+      <success-alert
+        ><p class="text-center">
+          Account is created successfully !
+        </p></success-alert
+      >
+      }
+    </div>
+    <div
+      class="hidden md:flex md:justify-center md:items-center md:col-span-6 bg-main"
+    >
+      <figure>
+        <img
+          src="images/auth-pages-side-logo1.png"
+          alt="Prestora Logo"
+          class="object-cover size-full"
+        />
+      </figure>
+    </div>
+  </div>
+</section>

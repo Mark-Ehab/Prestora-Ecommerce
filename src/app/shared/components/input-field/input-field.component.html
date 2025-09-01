@@ -1,0 +1,103 @@
+<div class="relative mb-6">
+  <label [for]="id" class="auth-form-input-label">{{ label }}</label>
+  <div class="relative">
+    <input
+      [type]="type || this.showPassword ? 'text' : 'password'"
+      [id]="id"
+      [name]="name"
+      [placeholder]="placeholder"
+      [class]="{
+        '!border-error':
+          (control?.invalid || control?.parent.hasError('passwordMismatch')) &&
+          control?.touched,
+        '!border-green-500':
+          ((id === 'rePassword' &&
+            !control?.parent.hasError('passwordMismatch') &&
+            control.value !== null) ||
+            (control?.valid && id !== 'rePassword')) &&
+          control?.touched
+      }"
+      [formControl]="control"
+      class="auth-form-input"
+    />
+    @if(id === "name"){
+    <i
+      class="fas fa-user-circle text-main absolute top-1/2 -translate-y-1/2 left-[2%] block"
+    ></i>
+    } @else if(id === "email"){
+    <i
+      class="fas fa-envelope text-main absolute top-1/2 -translate-y-1/2 left-[2%] block"
+    ></i>
+    } @else if(id === "password" || id ==="rePassword"){
+    <i
+      class="fas fa-lock text-main absolute top-1/2 -translate-y-1/2 left-[2%] block"
+    ></i>
+    <i
+      [class]="{
+        'fa-eye': showPassword === true,
+        'fa-eye-slash': showPassword === false
+      }"
+      class="fas text-main absolute top-1/2 -translate-y-1/2 right-[4%] block cursor-pointer"
+      (click)="showPassword = !showPassword"
+    ></i>
+    } @else{
+    <i
+      class="fas fa-phone text-main absolute top-1/2 -translate-y-1/2 left-[2%] block"
+    ></i>
+    }
+  </div>
+  @if((control?.errors || (control?.parent.errors && id ==="rePassword")) &&
+  control?.touched) {
+  <alert>
+    @if(control?.hasError("required")) { @if(id === "name"){
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> Username must be
+      provided
+    </li>
+    } @else if(id === "email"){
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> Email must be provided
+    </li>
+    } @else if(id === "password"){
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> Password must be
+      provided
+    </li>
+    } @else if(id === "rePassword"){
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> Confirm Password must
+      be provided
+    </li>
+    } @else {
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> Phones must be provided
+    </li>
+    } } @else if(control?.hasError("minlength")){
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> Username must be at
+      least 3 characters (and up to 20 characters)
+    </li>
+    }@else if(control?.hasError("maxlength")){
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> Username must not
+      exceed 20 characters
+    </li>
+    }@else if(control?.hasError("email")){
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> Invalid email format,
+      please provide valid one <br />(e.g. example@example.com)
+    </li>
+    }@else if(control?.hasError("passwordMismatch") || (control?.parent.errors
+    && id ==="rePassword")) {
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> Confirm password is not
+      matched with Password
+    </li>
+    } @else{
+    <li>
+      <ng-content></ng-content>
+    </li>
+    }
+  </alert>
+  }
+</div>
