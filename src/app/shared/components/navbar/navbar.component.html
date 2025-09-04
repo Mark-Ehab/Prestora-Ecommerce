@@ -1,5 +1,5 @@
 <nav
-  class="bg-bg-main fixed w-full z-20 top-0 start-0 border-b-[.0938rem] border-gray-200"
+  class="bg-bg-main fixed w-full z-20 top-0 start-0 border-b-[.0938rem] border-gray-200 h-[69px] min-h-[69px]"
 >
   <div class="custom-container">
     <div class="flex flex-wrap items-center justify-between mx-auto py-4 px-3">
@@ -47,7 +47,7 @@
         id="navbar-sticky"
       >
         <ul
-          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent"
+          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 rtl:space-x-reverse md:gap-x-2.5 md:flex-row md:mt-0 md:border-0 md:bg-transparent lg:gap-x-8"
         >
           <li>
             <a
@@ -83,7 +83,12 @@
           </li>
         </ul>
       </div>
-      <div class="flex items-center justify-center order-1 md:order-2">
+      <div
+        [class]="{
+          hidden: !isLoggedIn
+        }"
+        class="flex items-center justify-center order-1 md:order-2 h-[2.3423rem]"
+      >
         <ul class="flex items-center justify-center space-x-4">
           <li>
             <a routerLink="wishlist"
@@ -104,6 +109,29 @@
           </li>
         </ul>
       </div>
+      <div
+        [class]="{
+          hidden: isLoggedIn
+        }"
+        class="flex items-center justify-center order-1 md:order-2"
+      >
+        <ul class="flex items-center justify-center gap-2 h-[2.3423rem]">
+          <li>
+            <a
+              routerLink="login"
+              class="bg-transparent text-main rounded-full border border-main py-2 px-4 text-sm hover:bg-main hover:text-white cursor-pointer transition-colors duration-300 lg:min-w-[7.5rem] block text-center"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="signup"
+              class="bg-main text-white rounded-full border border-main py-2 px-4 text-sm hover:bg-main cursor-pointer transition-colors duration-300 lg:min-w-[7.5rem] block text-center"
+              >Sign Up</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
@@ -113,7 +141,10 @@
   id="dropdownDivider"
   class="z-30 hidden bg-bg-main divide-y divide-gray-800 rounded-lg shadow-sm w-44 translate-y-[18%]"
 >
-  <div class="px-4 py-2">Mark Ehab</div>
+  <div class="px-2 py-2">
+    <i class="far fa-user-circle text-main"></i>
+    {{ signinDecodedToken?.name?.split(" ", 1)?.join() }}
+  </div>
   <ul
     class="py-2 text-sm text-gray-700"
     aria-labelledby="dropdownDividerButton"
@@ -123,12 +154,18 @@
     </li>
 
     <li>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100">My Orders</a>
+      <a routerLink="orders" class="block px-4 py-2 hover:bg-gray-100"
+        >My Orders</a
+      >
     </li>
   </ul>
   <div class="py-2">
-    <a href="#" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
-      >Sign Out</a
+    <a
+      href="#"
+      class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 cursor-pointer"
+      (click)="signOut()"
     >
+      Sign Out
+    </a>
   </div>
 </div>

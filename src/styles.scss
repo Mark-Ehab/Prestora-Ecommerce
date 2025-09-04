@@ -40,12 +40,12 @@
 @layer component {
   .navlink 
   {
-    @apply block text-text-2nd py-2 px-3 text-text-2nd rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:!text-main md:p-0 relative
+    @apply block text-text-2nd py-2 px-3 text-text-2nd rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:!text-main md:p-0 relative size-full
   }
 
   .navlinkactive 
   {
-    @apply bg-main !text-white hover:!bg-main md:bg-transparent md:!text-main md:hover:text-main  md:hover:!bg-transparent transition-colors duration-500 md:after:w-full md:after:h-[.1563rem] md:after:bg-main   md:after:absolute md:after:left-0 md:after:top-[180%]
+    @apply bg-main !text-white hover:!bg-main md:bg-transparent md:!text-main md:hover:text-main  md:hover:!bg-transparent transition-colors duration-500 md:after:w-full md:after:h-[.1719rem] md:after:bg-main md:after:absolute md:after:left-0 md:after:top-[184%] 
   }
 
   .product-card

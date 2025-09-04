@@ -1,4 +1,3 @@
-import { join } from 'node:path';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
@@ -12,6 +11,7 @@ import { AuthenticationService } from '../services/Authentication/authentication
 import { SuccessAlertComponent } from '../shared/components/success-alert/success-alert.component';
 import { Subscription } from 'rxjs';
 import { InputFieldComponent } from '../../../shared/components/input-field/input-field.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
   private readonly authenticationService = inject(AuthenticationService);
   /* Inject Router service through function injection */
   private readonly router = inject(Router);
+  /* Inject CookieService service through function injection */
+  private readonly cookieService = inject(CookieService);
 
   /* Properties */
   loginForm!: FormGroup;
@@ -79,6 +81,8 @@ export class LoginComponent implements OnInit {
             this.errMsg = '';
             /* Set successMsg flag */
             this.successMsg = true;
+            /* Save the received token from response after succcessful signin in cookies */
+            this.cookieService.set('signinToken', response.token);
             /* Wait for 2 secs then navigate to home page */
             setTimeout(
               () =>
