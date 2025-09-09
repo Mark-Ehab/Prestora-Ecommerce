@@ -1,1 +1,167 @@
-<p>cart works!</p>
+<section id="cart" class="pt-5 pb-10 bg-bg-main">
+  <div class="custom-container">
+    <nav class="flex" aria-label="Breadcrumb">
+      <ol
+        class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+      >
+        <li class="inline-flex items-center">
+          <a
+            routerLink="/home"
+            class="inline-flex items-center text-sm font-medium text-main hover:text-main cursor-pointer"
+          >
+            Home
+          </a>
+        </li>
+        <li aria-current="page">
+          <div class="flex items-center">
+            <svg
+              class="rtl:rotate-180 w-2 h-2 text-gray-400 mx-1 font-light"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+            <span
+              class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"
+              >Cart</span
+            >
+          </div>
+        </li>
+      </ol>
+    </nav>
+    <div class="flex justify-between items-center w-1/2">
+      <div class="flex items-center mt-7 mb-6 gap-3">
+        <h2 class="text-text-main text-3xl font-semibold">Cart</h2>
+        <span
+          class="text-main text-[1rem] font-medium block bg-white rounded-lg px-[1rem]"
+          >{{ cartDetails.products.length }} Items</span
+        >
+      </div>
+      <button
+        (click)="clearCartData()"
+        class="capitalize text-sm rounded-md p-2 text-main bg-transparent border border-main hover:text-white hover:bg-main transition-colors duration-500 cursor-pointer"
+      >
+        clear cart <i class="fas fa-trash"></i>
+      </button>
+    </div>
+    <div class="grid grid-cols-12 gap-4">
+      <div class="col-span-8 flex-col gap-10">
+        <div class="divide-y-1">
+          @for (product of cartDetails.products; track product?.product?.id ) {
+          <div
+            [class]="{
+              'pb-6': $first,
+              'pt-6': $last,
+              'py-6': !$first && !$last
+            }"
+            class="border-text-main"
+          >
+            <div
+              class="bg-white h-[10rem] w-full rounded-lg shadow-[0_0_3px] shadow-main grid grid-cols-12"
+            >
+              <figure
+                class="overflow-hidden col-span-3 size-full pe-10 ps-3 py-3"
+              >
+                <img
+                  [src]="
+                    product?.product?.imageCover ||
+                    '/images/default-loading-image.png'
+                  "
+                  [alt]="product?.product?.title"
+                  class="size-full rounded-lg shadow-[0_0_3px] shadow-main"
+                />
+              </figure>
+              <div
+                class="col-span-9 pe-5 py-5 flex items-center justify-between"
+              >
+                <div class="flex flex-col justify-center gap-4 h-full">
+                  <h3 class="text-text-main text-[1.25rem] line-clamp-2">
+                    {{ product?.product?.title }}
+                  </h3>
+                  <div class="flex items-center gap-8">
+                    <div
+                      class="flex justify-center gap-10 bg-bg-main border border-[#A2A3B1] rounded-lg px-4 py-2"
+                    >
+                      <button
+                        class="text-text-main cursor-pointer"
+                        (click)="
+                          updateSpecificCartProductQuantityData(
+                            product.product.id,
+                            product.count - 1
+                          )
+                        "
+                      >
+                        <i
+                          [class]="{
+                            'fa-minus': product.count > 1,
+                            'fa-trash': product.count === 1
+                          }"
+                          class="fas"
+                        ></i>
+                      </button>
+                      <span class="text-text-main">{{ product.count }}</span>
+                      <button
+                        class="text-text-main cursor-pointer"
+                        (click)="
+                          updateSpecificCartProductQuantityData(
+                            product.product.id,
+                            product.count + 1
+                          )
+                        "
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                    <i
+                      (click)="
+                        removeSpecificCartProductData(product.product.id)
+                      "
+                      class="fas fa-trash text-main cursor-pointer hover:text-2nd"
+                    ></i>
+                  </div>
+                </div>
+                <span class="font-bold text-text-main"
+                  ><span class="font-normal">£</span
+                  >{{
+                    product.price * product.count | currency : "" : ""
+                  }}</span
+                >
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+      <div class="col-span-4">
+        <div
+          class="bg-white rounded-[.625rem] p-8 shadow-[0_0_3px] shadow-main"
+        >
+          <h3 class="capitalize text-text-main text-2xl font-medium mb-8">
+            order summary
+          </h3>
+          <div class="flex justify-between items-center mb-6">
+            <span
+              class="uppercase text-text-main text-sm leading-6 font-semibold"
+              >total price</span
+            >
+            <span class="text-text-main text-sm leading-5 font-normal"
+              ><span>£</span
+              >{{ cartDetails.totalCartPrice | currency : "" : "" }}</span
+            >
+          </div>
+          <button class="proceed-to-checkout-btn mb-0">
+            Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

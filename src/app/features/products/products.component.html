@@ -1,4 +1,4 @@
-<section id="products" class="pt-5 pb-10 mt-[4.0417rem] bg-bg-main">
+<section id="products" class="pt-5 pb-10 bg-bg-main">
   <div class="custom-container">
     <nav class="flex" aria-label="Breadcrumb">
       <ol
@@ -42,12 +42,18 @@
         <h2 class="text-text-main text-[2.5rem] font-semibold">All Products</h2>
       </div>
     </div>
+    <input
+      type="text"
+      placeholder="Search for products..."
+      [(ngModel)]="searchKeyword"
+      class="p-3 border border-main focus:outline-none focus:ring-2 focus:ring-main rounded-[.625rem] bg-white placeholder:bg-white placeholder:text-[1rem] placeholder:text-text-2nd mb-10 w-3/4 mx-auto block"
+    />
     <div
       class="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
     >
       @for (product of allProducts | paginate: { id: 'products-pagination',
       itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems:
-      totalItems }; track product.id) {
+      totalItems } | search: searchKeyword; track product.id) {
       <product-card
         [id]="product.id"
         [title]="product.title"

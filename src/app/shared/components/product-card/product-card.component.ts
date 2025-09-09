@@ -1,9 +1,12 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TermPipe } from '../../pipes/Term/term-pipe';
+import { AddToCartBtnComponent } from '../add-to-cart-btn/add-to-cart-btn.component';
 
 @Component({
   selector: 'product-card',
-  imports: [RouterLink],
+  imports: [RouterLink, CurrencyPipe, TermPipe, AddToCartBtnComponent],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
 })
@@ -24,12 +27,35 @@ export class ProductCardComponent {
   isAddToFavBtnHovered: boolean = false;
 
   /* Methods */
+  /*-----------------------------------------------------------------------------
+  # Description: A function to toggle fav button icon color on click
+  #------------------------------------------------------------------------------
+  # @params: void
+  #------------------------------------------------------------------------------
+  # return type: void
+  -----------------------------------------------------------------------------*/
   toggleFavBtnOnClick(): void {
     this.isAddToFavBtnClicked = !this.isAddToFavBtnClicked;
   }
+
+  /*-----------------------------------------------------------------------------
+  # Description: A function to fill fav button icon with main color on mouse enter
+  #------------------------------------------------------------------------------
+  # @params: void
+  #------------------------------------------------------------------------------
+  # return type: void
+  -----------------------------------------------------------------------------*/
   fillFavBtnOnMouseEnter(): void {
     this.isAddToFavBtnHovered = true;
   }
+
+  /*-----------------------------------------------------------------------------
+  # Description: A function to empty fav button icon color on mouse leave
+  #------------------------------------------------------------------------------
+  # @params: void
+  #------------------------------------------------------------------------------
+  # return type: void
+  -----------------------------------------------------------------------------*/
   emptyFavBtnOnMouseLeave(): void {
     this.isAddToFavBtnHovered = false;
   }

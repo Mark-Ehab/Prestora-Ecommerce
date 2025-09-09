@@ -73,7 +73,17 @@ export class AuthenticationService {
   # return type: void
   -----------------------------------------------------------------------------*/
   decodeSigninToken(): DecodedSigninToken | undefined {
-    /* Decode sigin JWT saved in cookies (If Any) */
-    return jwtDecode(this.cookieService.get('signinToken'));
+    /* Local variables definition */
+    let decodedJWT: DecodedSigninToken | undefined = undefined;
+    try {
+      /* Decode sigin JWT saved in cookies (If Any) */
+      decodedJWT = jwtDecode(this.cookieService.get('signinToken'));
+    } catch (error) {
+      /* Sign the user out from the site */
+      this.logOut();
+      /* Print the error on console */
+      console.log('%c Error: ', 'color:red', error);
+    }
+    return decodedJWT;
   }
 }

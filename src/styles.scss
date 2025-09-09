@@ -32,9 +32,7 @@
   width: 100%;
   padding-right: calc(1.5rem * 0.5);
   padding-left: calc(1.5rem * 0.5);
-  margin-right: auto;
-  margin-left: auto;
-  @apply sm:max-w-[33.75rem] md:max-w-[45rem] lg:max-w-[60rem] xl:max-w-[71.25rem]
+  @apply mx-auto sm:max-w-[33.75rem] md:max-w-[45rem] lg:max-w-[60rem] xl:max-w-[71.25rem]
 }
 
 @layer component {
@@ -55,12 +53,17 @@
 
   .add-to-cart-btn
   {
-    @apply inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-main rounded-lg hover:bg-[#573311] focus:ring-4 focus:outline-none w-full justify-center
+    @apply inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-main rounded-lg hover:bg-[#573311] focus:ring-4 focus:outline-none w-full justify-center cursor-pointer
   }
 
   .auth-btn
   {
     @apply w-full mb-6 bg-main rounded-full text-white p-2 text-xl hover:bg-2nd cursor-pointer disabled:bg-2nd
+  }
+
+  .proceed-to-checkout-btn
+  {
+    @apply w-full bg-main rounded-full text-white p-2 text-lg hover:bg-2nd cursor-pointer disabled:bg-2nd
   }
 
   .pagenotfound-btn

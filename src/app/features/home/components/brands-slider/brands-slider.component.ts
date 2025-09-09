@@ -38,16 +38,22 @@ export class BrandsSliderComponent implements OnInit, OnDestroy {
     ],
     responsive: {
       0: {
-        items: 3,
+        items: 1,
       },
-      400: {
+      500: {
+        items: 2,
+      },
+      640: {
         items: 4,
       },
-      740: {
+      768: {
         items: 5,
       },
-      940: {
+      1024: {
         items: 6,
+      },
+      1280: {
+        items: 7,
       },
     },
     nav: true,

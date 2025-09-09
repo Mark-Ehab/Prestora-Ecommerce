@@ -5,10 +5,18 @@ import { Product } from '../../core/models/product.interface';
 import { ProductsService } from '../../core/services/products/products.service';
 import { RouterLink } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
+import { SearchPipe } from '../../shared/pipes/Search/search-pipe';
 
 @Component({
   selector: 'app-products',
-  imports: [ProductCardComponent, RouterLink, NgxPaginationModule],
+  imports: [
+    ProductCardComponent,
+    RouterLink,
+    NgxPaginationModule,
+    FormsModule,
+    SearchPipe,
+  ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
@@ -23,6 +31,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   itemsPerPage!: number;
   currentPage!: number;
   totalItems!: number;
+  searchKeyword: string = '';
 
   /* Methods */
   /*-----------------------------------------------------------------------------

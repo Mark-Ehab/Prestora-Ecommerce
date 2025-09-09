@@ -12,10 +12,9 @@
     </div>
   </div>
   <div
-    class="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+    class="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5"
   >
-    @for (product of allProducts; track product.id) {
-    @if(product.priceAfterDiscount) {
+    @for (product of (allProducts | onSale).slice(0,20); track product.id) {
     <product-card
       [id]="product.id"
       [title]="product.title"
@@ -28,6 +27,6 @@
       [price]="product.price"
       [priceAfterDiscount]="product.priceAfterDiscount"
     />
-    } }
+    }
   </div>
 </section>

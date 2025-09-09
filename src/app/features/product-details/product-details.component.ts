@@ -4,10 +4,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from '../../core/models/product.interface';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { CurrencyPipe } from '@angular/common';
+import { AddToCartBtnComponent } from '../../shared/components/add-to-cart-btn/add-to-cart-btn.component';
 
 @Component({
   selector: 'app-product-details',
-  imports: [RouterLink, CarouselModule],
+  imports: [RouterLink, CarouselModule, CurrencyPipe, AddToCartBtnComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
 })
@@ -21,7 +23,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   /* Properties */
   private productId: string | null = null;
   private paramMapSubscription!: Subscription;
-  productDetails: Product = {} as Product;
+  productDetails: Product = { category: {}, brand: {} } as Product;
   private productDetailsSubscription!: Subscription;
   defaultProductImage!: string;
   selectedProductColor: string = 'Blue';
@@ -74,7 +76,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         next: (response) => {
           this.productDetails = response.data;
           this.defaultProductImage = response.data.imageCover;
-          console.log(this.productDetails);
         },
         error: (err) => {
           console.log('%c Error:', 'color:red', `${err.message}`);

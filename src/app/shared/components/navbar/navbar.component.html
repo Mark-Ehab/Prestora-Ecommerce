@@ -47,7 +47,7 @@
         id="navbar-sticky"
       >
         <ul
-          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 rtl:space-x-reverse md:gap-x-2.5 md:flex-row md:mt-0 md:border-0 md:bg-transparent lg:gap-x-8"
+          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 rtl:space-x-reverse md:gap-x-4 md:flex-row md:mt-0 md:border-0 md:bg-transparent lg:gap-x-8"
         >
           <li>
             <a
@@ -91,21 +91,21 @@
       >
         <ul class="flex items-center justify-center space-x-4">
           <li>
-            <a routerLink="wishlist"
-              ><i class="fa-regular fa-heart fa-lg hover:text-main"></i
+            <a routerLinkActive="!text-main" routerLink="wishlist"
+              ><i class="fas fa-heart fa-xl hover:text-main"></i
+            ></a>
+          </li>
+          <li>
+            <a routerLinkActive="!text-main" routerLink="cart">
+              <i class="fas fa-cart-shopping fa-xl hover:text-main"></i
             ></a>
           </li>
           <li>
             <i
               id="dropdownDividerButton"
               data-dropdown-toggle="dropdownDivider"
-              class="fa-regular fa-user fa-lg hover:text-main cursor-pointer"
+              class="fas fa-user fa-xl hover:text-main cursor-pointer"
             ></i>
-          </li>
-          <li>
-            <a routerLink="cart">
-              <i class="fa-solid fa-cart-shopping fa-lg hover:text-main"></i
-            ></a>
           </li>
         </ul>
       </div>
@@ -137,35 +137,36 @@
 </nav>
 
 <!-- Dropdown menu -->
-<div
-  id="dropdownDivider"
-  class="z-30 hidden bg-bg-main divide-y divide-gray-800 rounded-lg shadow-sm w-44 translate-y-[18%]"
->
-  <div class="px-2 py-2">
-    <i class="far fa-user-circle text-main"></i>
-    {{ signinDecodedToken?.name?.split(" ", 1)?.join() }}
-  </div>
-  <ul
-    class="py-2 text-sm text-gray-700"
-    aria-labelledby="dropdownDividerButton"
+<div [class]="{ hidden: isLoggedIn === false, block: isLoggedIn === true }">
+  <div
+    id="dropdownDivider"
+    class="z-30 hidden bg-bg-main divide-y divide-gray-800 rounded-lg shadow-sm w-44 translate-y-[18%]"
   >
-    <li>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-    </li>
-
-    <li>
-      <a routerLink="orders" class="block px-4 py-2 hover:bg-gray-100"
-        >My Orders</a
-      >
-    </li>
-  </ul>
-  <div class="py-2">
-    <a
-      href="#"
-      class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 cursor-pointer"
-      (click)="signOut()"
+    <div class="px-2 py-2">
+      <i class="fas fa-user-circle text-main"></i>
+      {{ signinDecodedToken?.name?.split(" ", 1)?.join() }}
+    </div>
+    <ul
+      class="py-2 text-sm text-gray-700"
+      aria-labelledby="dropdownDividerButton"
     >
-      Sign Out
-    </a>
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+      </li>
+
+      <li>
+        <a routerLink="orders" class="block px-4 py-2 hover:bg-gray-100"
+          >My Orders</a
+        >
+      </li>
+    </ul>
+    <div class="py-2">
+      <a
+        class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 cursor-pointer"
+        (click)="signOut()"
+      >
+        Sign Out
+      </a>
+    </div>
   </div>
 </div>

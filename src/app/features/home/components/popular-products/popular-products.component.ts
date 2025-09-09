@@ -5,10 +5,11 @@ import { ProductsService } from '../../../../core/services/products/products.ser
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 import { link } from 'fs';
 import { RouterLink } from '@angular/router';
+import { OnSalePipe } from '../../../../shared/pipes/OnSale/on-sale-pipe';
 
 @Component({
   selector: 'popular-products',
-  imports: [ProductCardComponent, RouterLink],
+  imports: [ProductCardComponent, RouterLink, OnSalePipe],
   templateUrl: './popular-products.component.html',
   styleUrl: './popular-products.component.scss',
 })

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FlowbiteService } from '../../../core/services/flowbite/flowbite.service';
 import { initFlowbite } from 'flowbite';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthenticationService } from '../../../core/auth/services/Authentication/authentication.service';
 import { CookieService } from 'ngx-cookie-service';
 import { DecodedSigninToken } from '../../../core/models/decoded-signin-token.interface';
@@ -18,6 +18,8 @@ export class NavbarComponent implements OnInit {
   private readonly cookieService = inject(CookieService);
   /* Inject AuthenticationService service through function injection */
   private readonly authenticationService = inject(AuthenticationService);
+  /* Inject AuthenticationService service through function injection */
+  private readonly router = inject(Router);
   /* Inject FlowbiteService service through constructor injection */
   constructor(private flowbiteService: FlowbiteService) {}
 
@@ -35,6 +37,10 @@ export class NavbarComponent implements OnInit {
   -----------------------------------------------------------------------------*/
   signOut(): void {
     this.authenticationService.logOut();
+    /* Toggle isLoggedIn flag*/
+    this.isLoggedIn = !this.isLoggedIn;
+    /* Navigate to home */
+    this.router.navigate(['/home']);
   }
 
   /* Component Lifecycle Hooks */
@@ -49,7 +55,6 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = !this.isLoggedIn;
       /* Decode signin token */
       this.signinDecodedToken = this.authenticationService.decodeSigninToken();
-      console.log(this.signinDecodedToken);
     }
   }
 }
