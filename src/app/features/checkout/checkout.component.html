@@ -1,0 +1,149 @@
+<!-- Angular Template Engine Variables for Checkout Component -->
+@let phoneControl = checkoutForm.get("shippingAddress")?.get("phone"); @let
+cityControl = checkoutForm.get("shippingAddress")?.get("city"); @let
+detailsControl = checkoutForm.get("shippingAddress")?.get("details");
+
+<section id="checkout" class="pt-5 pb-10 bg-white">
+  <div class="custom-container">
+    <nav class="flex" aria-label="Breadcrumb">
+      <ol
+        class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+      >
+        <li class="inline-flex items-center">
+          <a
+            routerLink="/home"
+            class="inline-flex items-center text-sm font-medium text-main hover:text-main cursor-pointer"
+          >
+            Home
+          </a>
+        </li>
+        <li aria-current="page">
+          <div class="flex items-center">
+            <svg
+              class="rtl:rotate-180 w-2 h-2 text-gray-400 mx-1 font-light"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+            <a
+              routerLink="/cart"
+              class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400 hover:text-main transition-colors"
+              >Cart</a
+            >
+          </div>
+        </li>
+        <li aria-current="page">
+          <div class="flex items-center">
+            <svg
+              class="rtl:rotate-180 w-2 h-2 text-gray-400 mx-1 font-light"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+            <span
+              class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"
+              >Checkout</span
+            >
+          </div>
+        </li>
+      </ol>
+    </nav>
+    <div
+      class="bg-bg-main w-full lg:w-2/3 px-4 pb-2 pt-6 rounded-xl mx-auto shadow-main shadow-[0px_0px_5px] mt-7"
+    >
+      <h2 class="text-text-main text-3xl font-semibold mb-7 text-center">
+        Checkout
+      </h2>
+      <form [formGroup]="checkoutForm" (ngSubmit)="submitForm()">
+        <input-field
+          [type]="'tel'"
+          [id]="'phone'"
+          [name]="'phone'"
+          [label]="'Phone'"
+          [placeholder]="'Ex: +201234567890'"
+          [control]="phoneControl"
+        >
+          <i class="fa-solid fa-circle-info text-error"></i> Phone must be an
+          egyptian nubmer (e.g. (+)201-(0|1|2|5)-XXXXXXXX)</input-field
+        >
+        <input-field
+          [type]="'text'"
+          [id]="'city'"
+          [name]="'city'"
+          [label]="'City'"
+          [placeholder]="'Ex: Cairo'"
+          [control]="cityControl"
+        ></input-field>
+        <input-field
+          [inputType]="'textarea'"
+          [id]="'details'"
+          [name]="'details'"
+          [label]="'Details'"
+          [placeholder]="'Provide further details'"
+          [control]="detailsControl"
+        ></input-field>
+        <div>
+          <label for="payment-method-cash" class="form-input-label"
+            >Payment Method</label
+          >
+          <div class="grid grid-cols-12 gap-5 mb-6">
+            <label
+              for="payment-method-cash"
+              class="border border-main text-text-main col-span-6 text-center rounded-lg py-4 px-2 cursor-pointer has-[.child:checked]:bg-main has-[.child:checked]:text-white transition-colors duration-500 hover:bg-main hover:text-white"
+            >
+              <input
+                type="radio"
+                id="payment-method-cash"
+                name="payment-method"
+                value="cash"
+                class="child hidden"
+                [formControl]="paymentMethodControl"
+              />
+              <span class="block text-2xl italic"
+                >Cash <i class="fas fa-money-bills fa-xl"></i
+              ></span>
+            </label>
+            <label
+              for="payment-method-visa"
+              class="border border-main text-text-main col-span-6 text-center rounded-lg py-4 px-2 cursor-pointer has-[.child:checked]:bg-main has-[.child:checked]:text-white transition-colors duration-500 hover:bg-main hover:text-white"
+            >
+              <input
+                type="radio"
+                id="payment-method-visa"
+                name="payment-method"
+                value="visa"
+                class="child hidden"
+                [formControl]="paymentMethodControl"
+              />
+              <span class="block text-2xl italic"
+                >VISA <i class="fa-brands fa-cc-visa fa-xl"></i
+              ></span>
+            </label>
+          </div>
+          @if(paymentMethodControl.touched && paymentMethodControl.invalid) {
+          <div class="mb-6"><alert>Payment method must be selected</alert></div>
+          }
+        </div>
+        <button class="place-order-btn">Place Order</button>
+      </form>
+    </div>
+  </div>
+</section>

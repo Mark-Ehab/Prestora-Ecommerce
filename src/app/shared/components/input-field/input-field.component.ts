@@ -13,6 +13,7 @@ export class InputFieldComponent {
   @Input() label: string = '';
   @Input() type!: string;
   @Input() placeholder: string = '';
+  @Input() inputType: string = 'input';
   @Input({ required: true }) id!: string;
   @Input({ required: true }) name!: string;
   @Input({ required: true }) control: any;

@@ -1,6 +1,7 @@
 <div class="relative mb-6">
-  <label [for]="id" class="auth-form-input-label">{{ label }}</label>
+  <label [for]="id" class="form-input-label">{{ label }}</label>
   <div class="relative">
+    @if(inputType === "input"){
     <input
       [type]="type || this.showPassword ? 'text' : 'password'"
       [id]="id"
@@ -18,9 +19,20 @@
           control?.touched
       }"
       [formControl]="control"
-      class="auth-form-input"
-    />
-    @if(id === "name"){
+      class="form-input"
+    />} @else{
+    <textarea
+      [id]="id"
+      [name]="name"
+      [placeholder]="placeholder"
+      [class]="{
+        '!border-error': control?.invalid && control?.touched,
+        '!border-green-500': control?.valid && control?.touched
+      }"
+      [formControl]="control"
+      class="textarea-form-input"
+    ></textarea
+    >} @if(id === "name"){
     <i
       class="fas fa-user-circle text-main absolute top-1/2 -translate-y-1/2 left-[2%] block"
     ></i>
@@ -28,7 +40,11 @@
     <i
       class="fas fa-envelope text-main absolute top-1/2 -translate-y-1/2 left-[2%] block"
     ></i>
-    } @else if(id === "password" || id ==="rePassword"){
+    } @else if(id === "city"){
+    <i
+      class="fas fa-city text-main absolute top-1/2 -translate-y-1/2 left-[2%] block"
+    ></i>
+    }@else if(id === "password" || id ==="rePassword"){
     <i
       class="fas fa-lock text-main absolute top-1/2 -translate-y-1/2 left-[2%] block"
     ></i>
@@ -40,7 +56,7 @@
       class="fas text-main absolute top-1/2 -translate-y-1/2 right-[4%] block cursor-pointer"
       (click)="showPassword = !showPassword"
     ></i>
-    } @else{
+    } @else if(id === "phone"){
     <i
       class="fas fa-phone text-main absolute top-1/2 -translate-y-1/2 left-[2%] block"
     ></i>
@@ -68,9 +84,18 @@
       <i class="fa-solid fa-circle-info text-error"></i> Confirm Password must
       be provided
     </li>
-    } @else {
+    } @else if(id === "phone"){
     <li>
-      <i class="fa-solid fa-circle-info text-error"></i> Phones must be provided
+      <i class="fa-solid fa-circle-info text-error"></i> Phone must be provided
+    </li>
+    } @else if(id === "city"){
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> City must be provided
+    </li>
+    } @else if(id === "details"){
+    <li>
+      <i class="fa-solid fa-circle-info text-error"></i> Details must be
+      provided
     </li>
     } } @else if(control?.hasError("minlength")){
     <li>

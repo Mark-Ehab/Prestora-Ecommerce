@@ -61,9 +61,19 @@
     @apply w-full mb-6 bg-main rounded-full text-white p-2 text-xl hover:bg-2nd cursor-pointer disabled:bg-2nd
   }
 
+  .place-order-btn
+  {
+    @apply w-full mb-5 bg-main rounded-full text-white p-2 text-xl hover:bg-2nd cursor-pointer disabled:bg-2nd
+  }
+
   .proceed-to-checkout-btn
   {
-    @apply w-full bg-main rounded-full text-white p-2 text-lg hover:bg-2nd cursor-pointer disabled:bg-2nd
+    @apply block text-center w-full bg-main rounded-full text-white p-2 text-lg hover:bg-2nd cursor-pointer disabled:bg-2nd
+  }
+
+  .empty-cart-btn
+  {
+    @apply w-fit bg-main rounded-md text-white px-6 py-2 text-lg hover:bg-2nd cursor-pointer disabled:bg-2nd
   }
 
   .pagenotfound-btn
@@ -76,12 +86,16 @@
     @apply text-text-2nd text-[1rem] sm:text-lg md:text-2xl w-fit after:w-full after:h-[.1563rem] after:bg-main after:absolute after:left-0 after:top-[121.5%] relative 
   }
 
-  .auth-form-input{
+  .form-input{
     @apply bg-white w-full rounded-lg border-[.0938rem] border-white focus:outline-none focus:ring-main px-10 
   }
 
-  .auth-form-input-label{
-    @apply text-[1.125rem] text-text-main font-medium mb-2 block text-text-main 
+  .textarea-form-input{
+    @apply bg-white w-full rounded-lg border-[.0938rem] border-white focus:outline-none focus:ring-main px-2 
+  }
+
+  .form-input-label{
+    @apply text-[1.125rem] text-text-main font-medium mb-2 block text-text-main cursor-pointer
   }
 }
 

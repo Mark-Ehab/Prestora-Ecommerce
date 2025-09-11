@@ -37,8 +37,9 @@
         </li>
       </ol>
     </nav>
-    <div class="flex justify-between items-center w-1/2">
-      <div class="flex items-center mt-7 mb-6 gap-3">
+    @if(cartDetails.products.length){
+    <div class="flex justify-between items-center w-1/2 my-7">
+      <div class="flex items-center gap-3">
         <h2 class="text-text-main text-3xl font-semibold">Cart</h2>
         <span
           class="text-main text-[1rem] font-medium block bg-white rounded-lg px-[1rem]"
@@ -157,11 +158,37 @@
               >{{ cartDetails.totalCartPrice | currency : "" : "" }}</span
             >
           </div>
-          <button class="proceed-to-checkout-btn mb-0">
+          <a
+            [routerLink]="['/checkout', cartDetails._id]"
+            class="proceed-to-checkout-btn mb-0"
+          >
             Proceed to Checkout
-          </button>
+          </a>
         </div>
       </div>
     </div>
+    }@else {
+    <div>
+      <figure class="h-[50vh]">
+        <img
+          src="/images/cart-empty.png"
+          alt="Empty Cart"
+          class="size-full object-contain"
+        />
+      </figure>
+      <div class="flex flex-col justify-center items-center">
+        <h2 class="capitalize font-bold text-text-main text-3xl mb-4">
+          your prestora cart is empty
+        </h2>
+        <p class="text-text-2nd text-lg font-medium mb-4">
+          Looks like your cart is waiting to be filled. Explore thousands of
+          Prestora products today.
+        </p>
+        <a routerLink="/products" class="block empty-cart-btn capitalize"
+          >start shopping</a
+        >
+      </div>
+    </div>
+    }
   </div>
 </section>

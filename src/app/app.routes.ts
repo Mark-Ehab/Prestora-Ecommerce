@@ -14,6 +14,7 @@ import { BlankComponent } from './core/layouts/blank/blank.component';
 import { ProductDetailsComponent } from './features/product-details/product-details.component';
 import { authGuard } from './core/guards/AuthGuard/auth-guard';
 import { isLoggedInGuard } from './core/guards/isLoggedInGuard/is-logged-in-guard';
+import { CheckoutComponent } from './features/checkout/checkout.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -74,9 +75,15 @@ export const routes: Routes = [
         canActivate: [authGuard],
       },
       {
-        path: 'orders',
+        path: 'checkout/:id',
+        component: CheckoutComponent,
+        title: 'Checkout',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'allorders',
         component: OrdersComponent,
-        title: 'Orders',
+        title: 'All Orders',
         canActivate: [authGuard],
       },
     ],

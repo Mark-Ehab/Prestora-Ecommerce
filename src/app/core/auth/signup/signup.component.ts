@@ -71,7 +71,7 @@ export class SignupComponent implements OnInit {
         ]),
         phone: new FormControl(null, [
           Validators.required,
-          Validators.pattern(/^\+?201[0125][0-9]{8}$/),
+          Validators.pattern(/^\+?2?01[0125][0-9]{8}$/),
         ]),
       },
       { validators: [this.checkConfirmPasswordControlValue] }

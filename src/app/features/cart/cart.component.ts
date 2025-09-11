@@ -20,7 +20,7 @@ export class CartComponent implements OnInit, OnDestroy {
   private readonly toastrService = inject(ToastrService);
 
   /* Properties */
-  cartDetails: Cart = { products: [{}] } as Cart;
+  cartDetails: Cart = {} as Cart;
   private getCartSubscription!: Subscription;
   private clearCartSubscription: Subscription = new Subscription();
   private removeSpecificCartProductSubscription: Subscription =
@@ -98,6 +98,12 @@ export class CartComponent implements OnInit, OnDestroy {
         next: (response) => {
           if (response.status === 'success') {
             this.cartDetails = response.data;
+            if (!productQuantity) {
+              this.toastrService.success(
+                'Product is successfully removed from your cart',
+                'Prestora'
+              );
+            }
           }
         },
         error: (err) =>
