@@ -1,11 +1,59 @@
-import { Component } from '@angular/core';
+import { response } from 'express';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { OrdersService } from '../../core/services/orders/orders.service';
+import { AuthenticationService } from '../../core/services/Authentication/authentication.service';
+import { DecodedSigninToken } from '../../core/models/decoded-signin-token.interface';
+import { Subscription } from 'rxjs';
+import { Order } from './models/order.interface';
+import { TermPipe } from '../../shared/pipes/Term/term-pipe';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-orders',
-  imports: [],
+  imports: [TermPipe, CurrencyPipe],
   templateUrl: './orders.component.html',
-  styleUrl: './orders.component.scss'
+  styleUrl: './orders.component.scss',
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit, OnDestroy {
+  /* Dependency Injection */
+  /* Inject OrdersService service through function injection */
+  private readonly ordersService = inject(OrdersService);
+  /* Inject AuthenticationService service through function injection */
+  private readonly authenticationService = inject(AuthenticationService);
 
+  /* Properties */
+  private signinDecodedToken: DecodedSigninToken | undefined =
+    {} as DecodedSigninToken;
+  private getSpecificUserOrdersSubscription!: Subscription;
+  allOrders: Order[] = [] as Order[];
+
+  /* Methods */
+  /*-----------------------------------------------------------------------------
+  # Description: A function to get the data of all orders of a logged user through 
+  # Route E-Commerce API on '/orders/user' endpoint
+  #------------------------------------------------------------------------------
+  # @params: 
+  # @param 1: userId: string | undefined
+  #------------------------------------------------------------------------------
+  # return type: Observable<any>
+  -----------------------------------------------------------------------------*/
+  getSpecificUserOrdersData(userId: string | undefined): void {
+    this.getSpecificUserOrdersSubscription = this.ordersService
+      .getSpecificUserOrders(userId)
+      .subscribe({
+        next: (response) => {
+          this.allOrders = response;
+        },
+        error: (err) => console.log('%c Error: ', 'color:red', err.message),
+      });
+  }
+
+  /* Component Lifecycle Hooks */
+  ngOnInit(): void {
+    /* Get decoded signin token */
+    this.signinDecodedToken = this.authenticationService.decodeSigninToken();
+    /* Get specific user orders on component initialization */
+    this.getSpecificUserOrdersData(this.signinDecodedToken?.id);
+  }
+  ngOnDestroy(): void {}
 }

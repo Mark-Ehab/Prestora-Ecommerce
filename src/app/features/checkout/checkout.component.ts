@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { InputFieldComponent } from '../../shared/components/input-field/input-field.component';
 import {
   FormBuilder,
@@ -29,10 +29,12 @@ export class CheckoutComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   /* Inject OrdersService service through function injection */
   private readonly ordersService = inject(OrdersService);
-  /* Inject Activated Route Service through function injection*/
+  /* Inject ActivatedRoute Service through function injection*/
   private readonly activatedRoute = inject(ActivatedRoute);
-  /* Inject ToastrService Route Service through function injection*/
+  /* Inject ToastrService Service through function injection*/
   private readonly toastrService = inject(ToastrService);
+  /* Inject Router Service through function injection*/
+  private readonly router = inject(Router);
 
   /* Properties */
   checkoutForm!: FormGroup;
@@ -96,10 +98,13 @@ export class CheckoutComponent implements OnInit {
       .subscribe({
         next: (response) => {
           if (response.status === 'success') {
+            /* Show order success message to the user */
             this.toastrService.success(
               'Order is placed successfully',
               'Prestora'
             );
+            /* Navigate to allorders page */
+            this.router.navigate(['/allorders']);
           }
         },
         error: (err) => console.log('%c Error: ', 'color:red', err.message),
@@ -140,8 +145,6 @@ export class CheckoutComponent implements OnInit {
   # return type: void
   -----------------------------------------------------------------------------*/
   submitForm(): void {
-    console.log(this.checkoutForm);
-    console.log(this.paymentMethodControl);
     if (this.checkoutForm.valid && this.paymentMethodControl.valid) {
       if (this.paymentMethodControl.value === 'cash') {
         /* Unsubscribe from cashPaymentSubscription */

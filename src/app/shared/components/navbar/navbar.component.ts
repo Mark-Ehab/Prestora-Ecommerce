@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FlowbiteService } from '../../../core/services/flowbite/flowbite.service';
 import { initFlowbite } from 'flowbite';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthenticationService } from '../../../core/auth/services/Authentication/authentication.service';
+import { AuthenticationService } from '../../../core/services/Authentication/authentication.service';
 import { CookieService } from 'ngx-cookie-service';
 import { DecodedSigninToken } from '../../../core/models/decoded-signin-token.interface';
 

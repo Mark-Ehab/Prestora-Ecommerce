@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
-import { DecodedSigninToken } from '../../../models/decoded-signin-token.interface';
+import { DecodedSigninToken } from '../../models/decoded-signin-token.interface';
 
 @Injectable({
   providedIn: 'root',

@@ -1,1 +1,125 @@
-<p>orders works!</p>
+<section id="orders" class="pt-5 pb-10 bg-bg-main">
+  <div class="custom-container">
+    <nav class="flex" aria-label="Breadcrumb">
+      <ol
+        class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+      >
+        <li class="inline-flex items-center">
+          <a
+            routerLink="/home"
+            class="inline-flex items-center text-sm font-medium text-main hover:text-main cursor-pointer"
+          >
+            Home
+          </a>
+        </li>
+        <li aria-current="page">
+          <div class="flex items-center">
+            <svg
+              class="rtl:rotate-180 w-2 h-2 text-gray-400 mx-1 font-light"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+            <span
+              class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"
+              >Orders</span
+            >
+          </div>
+        </li>
+      </ol>
+    </nav>
+    <div class="flex items-center gap-3 w-1/2 my-7">
+      <h2 class="text-text-main text-3xl font-semibold">Orders</h2>
+      <span
+        class="text-main text-[1rem] font-medium block bg-white rounded-lg px-[1rem]"
+        >{{ allOrders.length }} orders</span
+      >
+    </div>
+    <div
+      class="shadow-[0_0_3px] shadow-main bg-white rounded-lg w-full lg:w-3/4 lg:mx-auto p-5 flex flex-col gap-5 justify-center"
+    >
+      @for (order of allOrders; track $index) {
+      <div
+        class="flex flex-col w-full shadow-[0_0_3px] shadow-text-main rounded-lg gap-5 p-4 divide-y-1"
+      >
+        <div class="flex border-transparent justify-center items-center">
+          <span>Order {{ $index + 1 }}</span>
+        </div>
+        <div class="flex border-transparent items-center">
+          <div class="divide-y-1">
+            @for (cartItem of order.cartItems; track cartItem._id) {
+            <div class="border-text-main p-2">
+              <div class="grid grid-cols-12 gap-5 md:gap-10">
+                <figure
+                  class="overflow-hidden col-span-4 w-full h-[7.5rem] rounded-lg shadow-[0_0_3px] shadow-main"
+                >
+                  <img
+                    [src]="cartItem.product.imageCover"
+                    [alt]="cartItem.product.title"
+                    class="size-full"
+                  />
+                </figure>
+                <div class="col-span-8 flex flex-col justify-center">
+                  <span class="block text-main mb-1 line-clamp-1">{{
+                    cartItem.product.title | term : 4
+                  }}</span>
+                  <div>
+                    <span class="block text-text-2nd"
+                      >Count:
+                      <span class="text-main">{{ cartItem.count }}</span></span
+                    >
+                    <span class="block text-text-2nd"
+                      >Price:
+                      <span class="text-main"
+                        >£{{
+                          cartItem.price * cartItem.count | currency : "" : ""
+                        }}</span
+                      ></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+        <div class="flex border-transparent justify-center gap-5">
+          <span class="block text-main text-sm md:text-[1rem]"
+            >Delivered:
+            <span class="text-text-main"
+              >@if(order.isDelivered){Yes}@else{No}</span
+            ></span
+          >
+          <span class="block text-main text-sm md:text-[1rem]"
+            >Paid:
+            <span class="text-text-main"
+              >@if(order.isPaid){Yes}@else{No}</span
+            ></span
+          >
+          <span class="block text-main text-sm md:text-[1rem]"
+            >Payment Method:
+            <span class="text-text-main">{{
+              order.paymentMethodType
+            }}</span></span
+          >
+          <span class="block text-main text-sm md:text-[1rem]"
+            >Total Price:
+            <span class="text-text-main"
+              >£{{ order.totalOrderPrice | currency : "" : "" }}</span
+            ></span
+          >
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

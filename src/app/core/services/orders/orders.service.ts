@@ -68,4 +68,19 @@ export class OrdersService {
       this.getCartRequestHeader()
     );
   }
+
+  /*-----------------------------------------------------------------------------
+  # Description: A function to get an obeservable<any> that holds the data of all
+  # orders of a logged user through Route E-Commerce API on '/orders/user' endpoint
+  #------------------------------------------------------------------------------
+  # @params: 
+  # @param 1: userId: string | undefined
+  #------------------------------------------------------------------------------
+  # return type: Observable<any>
+  -----------------------------------------------------------------------------*/
+  getSpecificUserOrders(userId: string | undefined): Observable<any> {
+    return this.httpClient.get(
+      `${environment.ecommerceBaseURl}/orders/user/${userId}`
+    );
+  }
 }

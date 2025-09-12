@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthenticationService } from '../services/Authentication/authentication.service';
+import { AuthenticationService } from '../../services/Authentication/authentication.service';
 import { AlertComponent } from '../shared/components/alert/alert.component';
 import { SuccessAlertComponent } from '../shared/components/success-alert/success-alert.component';
 import { Subscription } from 'rxjs';
