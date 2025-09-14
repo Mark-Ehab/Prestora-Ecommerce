@@ -1,17 +1,5 @@
 <div class="product-card group/parent relative">
-  <span
-    class="bg-bg-main size-8.75 p-1 rounded-xl flex justify-center items-center border border-main group absolute top-[1.1687rem] right-5 z-10"
-    (click)="toggleFavBtnOnClick()"
-    (pointerenter)="fillFavBtnOnMouseEnter()"
-    (pointerleave)="emptyFavBtnOnMouseLeave()"
-    ><i
-      [class]="{
-        'far':this.isAddToFavBtnClicked === false || this.isAddToFavBtnHovered === false,
-        'fas':this.isAddToFavBtnClicked === true || this.isAddToFavBtnHovered === true,
-      }"
-      class="fa-heart text-main fa-xl"
-    ></i
-  ></span>
+  <wishlist-btn [productId]="id" [wishlist]="wishlist"></wishlist-btn>
   <div [routerLink]="['/productdetails', slug, id]">
     <figure class="relative px-3 pt-3 h-[200px]">
       <div

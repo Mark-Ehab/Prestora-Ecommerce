@@ -6,25 +6,37 @@ import { Product } from '../../core/models/product.interface';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CurrencyPipe } from '@angular/common';
 import { AddToCartBtnComponent } from '../../shared/components/add-to-cart-btn/add-to-cart-btn.component';
+import { WishlistBtnComponent } from '../../shared/components/wishlist-btn/wishlist-btn.component';
+import { WishlistService } from '../../core/services/wishlist/wishlist.service';
 
 @Component({
   selector: 'app-product-details',
-  imports: [RouterLink, CarouselModule, CurrencyPipe, AddToCartBtnComponent],
+  imports: [
+    RouterLink,
+    CarouselModule,
+    CurrencyPipe,
+    AddToCartBtnComponent,
+    WishlistBtnComponent,
+  ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   /* Dependency Injection */
-  /* Inject Activated Route Service through function injection*/
+  /* Inject ActivatedRoute Service through function injection*/
   private readonly activatedRoute = inject(ActivatedRoute);
-  /* Inject Product Details Service through function injection */
+  /* Inject ProductDetailsService Service through function injection */
   private readonly productDetailsService = inject(ProductDetailsService);
+  /* Inject WishlistService Service through function injection */
+  private readonly wishlistService = inject(WishlistService);
 
   /* Properties */
-  private productId: string | null = null;
   private paramMapSubscription!: Subscription;
-  productDetails: Product = { category: {}, brand: {} } as Product;
   private productDetailsSubscription!: Subscription;
+  private loggedUserWishlistSubscription!: Subscription;
+  productId!: string;
+  productDetails: Product = { category: {}, brand: {} } as Product;
+  wishlist: Product[] = [] as Product[];
   defaultProductImage!: string;
   selectedProductColor: string = 'Blue';
   selectedProductSize: string = 'Medium';
@@ -56,7 +68,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   getProductIdFromUrl(): void {
     this.paramMapSubscription = this.activatedRoute.paramMap.subscribe({
       next: (urlParams) => {
-        this.productId = urlParams.get('id');
+        this.productId = urlParams.get('id') as string;
+        /* Get specfic product details data on component initialization */
+        this.getSpecificProductDetailsData();
       },
     });
   }
@@ -83,18 +97,40 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
+  /*-----------------------------------------------------------------------------
+  # Description: A function to get all the data of a logged user wishlist got from
+  # Route E-Commerce API on '/wishlist' endpoint
+  #------------------------------------------------------------------------------
+  # @params: void
+  #------------------------------------------------------------------------------
+  # return type: void
+  -----------------------------------------------------------------------------*/
+  getLoggedUserWishlist(): void {
+    this.loggedUserWishlistSubscription = this.wishlistService
+      .getLoggedUserWishlist()
+      .subscribe({
+        next: (response) => {
+          this.wishlist = response.data;
+          /* Get product Id from URL on component initialization */
+          this.getProductIdFromUrl();
+        },
+        error: (err) =>
+          console.log('%c Error:', 'color:red', ` ${err.message}`),
+      });
+  }
+
   /* Component Lifecycle Hooks */
   ngOnInit(): void {
-    /* Get product Id from URL on component initialization */
-    this.getProductIdFromUrl();
-    /* Get specfic product details data on component initialization */
-    this.getSpecificProductDetailsData();
+    /* Get logged user wishlist on component initialization */
+    this.getLoggedUserWishlist();
   }
 
   ngOnDestroy(): void {
-    /* Unsubscribe from paramMap observable on component destruction */
+    /* Unsubscribe from paramMapSubscription observable on component destruction */
     this.paramMapSubscription.unsubscribe();
-    /* Unsubscribe from productDetails observable on component destruction */
+    /* Unsubscribe from productDetailsSubscription observable on component destruction */
     this.productDetailsSubscription.unsubscribe();
+    /* Unsubscribe from loggedUserWishlistSubscription observable on component destruction */
+    this.loggedUserWishlistSubscription.unsubscribe();
   }
 }

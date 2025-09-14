@@ -77,12 +77,20 @@
           </figure>
           }
         </div>
-        <figure class="overflow-hidden size-full rounded-xl border border-main">
+        <figure
+          class="overflow-hidden size-full rounded-xl border border-main relative"
+        >
           <img
             [src]="defaultProductImage || '/images/default-loading-image.png'"
             [alt]="productDetails.title"
             class="size-full hover:scale-125 transition-transform duration-500 cursor-zoom-in"
           />
+          @if(productId && wishlist){
+          <wishlist-btn
+            [productId]="productId"
+            [wishlist]="wishlist"
+          ></wishlist-btn
+          >}
         </figure>
       </div>
       <!-- <div class="left-side col-span-5 space-x-4 flex h-[25rem]"> -->

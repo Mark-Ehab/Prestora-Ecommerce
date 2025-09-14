@@ -1,0 +1,11 @@
+<span
+  class="bg-bg-main size-8.75 p-1 rounded-xl flex justify-center items-center border border-main group absolute top-[1.1687rem] right-5 z-10 cursor-pointer"
+  (click)="toggleWishlistBtnOnClick(productId)"
+  ><i
+    [class]="{
+        'far':this.isProductAddedToWishlist === false || this.isAddToWishlistBtnHovered === false,
+        'fas':this.isProductAddedToWishlist === true || this.isAddToWishlistBtnHovered === true,
+      }"
+    class="fa-heart text-main fa-xl"
+  ></i
+></span>

@@ -3,10 +3,18 @@ import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TermPipe } from '../../pipes/Term/term-pipe';
 import { AddToCartBtnComponent } from '../add-to-cart-btn/add-to-cart-btn.component';
+import { WishlistBtnComponent } from '../wishlist-btn/wishlist-btn.component';
+import { Product } from '../../../core/models/product.interface';
 
 @Component({
   selector: 'product-card',
-  imports: [RouterLink, CurrencyPipe, TermPipe, AddToCartBtnComponent],
+  imports: [
+    RouterLink,
+    CurrencyPipe,
+    TermPipe,
+    AddToCartBtnComponent,
+    WishlistBtnComponent,
+  ],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
 })
@@ -23,40 +31,5 @@ export class ProductCardComponent {
   @Input({ required: true }) rate!: number;
   @Input({ required: true }) price!: number;
   @Input({ required: true }) priceAfterDiscount!: number;
-  isAddToFavBtnClicked: boolean = false;
-  isAddToFavBtnHovered: boolean = false;
-
-  /* Methods */
-  /*-----------------------------------------------------------------------------
-  # Description: A function to toggle fav button icon color on click
-  #------------------------------------------------------------------------------
-  # @params: void
-  #------------------------------------------------------------------------------
-  # return type: void
-  -----------------------------------------------------------------------------*/
-  toggleFavBtnOnClick(): void {
-    this.isAddToFavBtnClicked = !this.isAddToFavBtnClicked;
-  }
-
-  /*-----------------------------------------------------------------------------
-  # Description: A function to fill fav button icon with main color on mouse enter
-  #------------------------------------------------------------------------------
-  # @params: void
-  #------------------------------------------------------------------------------
-  # return type: void
-  -----------------------------------------------------------------------------*/
-  fillFavBtnOnMouseEnter(): void {
-    this.isAddToFavBtnHovered = true;
-  }
-
-  /*-----------------------------------------------------------------------------
-  # Description: A function to empty fav button icon color on mouse leave
-  #------------------------------------------------------------------------------
-  # @params: void
-  #------------------------------------------------------------------------------
-  # return type: void
-  -----------------------------------------------------------------------------*/
-  emptyFavBtnOnMouseLeave(): void {
-    this.isAddToFavBtnHovered = false;
-  }
+  @Input({ required: true }) wishlist!: Product[];
 }

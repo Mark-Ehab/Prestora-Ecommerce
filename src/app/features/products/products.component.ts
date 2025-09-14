@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { SearchPipe } from '../../shared/pipes/Search/search-pipe';
+import { WishlistService } from '../../core/services/wishlist/wishlist.service';
 
 @Component({
   selector: 'app-products',
@@ -24,10 +25,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
   /* Dependency Injection */
   /* Inject ProductsService through function injection */
   private readonly productsService = inject(ProductsService);
+  /* Inject WishlistService service through function injection */
+  private readonly wishlistService = inject(WishlistService);
 
   /* Properties */
   allProducts: Product[] = [] as Product[];
+  wishlist: Product[] = [] as Product[];
   private allProductsSubscription!: Subscription;
+  private loggedUserWishlistSubscription!: Subscription;
   itemsPerPage!: number;
   currentPage!: number;
   totalItems!: number;
@@ -57,6 +62,28 @@ export class ProductsComponent implements OnInit, OnDestroy {
           console.log('%c Error:', 'color:red', ` ${err.message}`),
       });
   }
+
+  /*-----------------------------------------------------------------------------
+  # Description: A function to get all the data of a logged user wishlist got from
+  # Route E-Commerce API on '/wishlist' endpoint
+  #------------------------------------------------------------------------------
+  # @params: void
+  #------------------------------------------------------------------------------
+  # return type: void
+  -----------------------------------------------------------------------------*/
+  getLoggedUserWishlist(): void {
+    this.loggedUserWishlistSubscription = this.wishlistService
+      .getLoggedUserWishlist()
+      .subscribe({
+        next: (response) => {
+          this.wishlist = response.data;
+          this.getAllProductsData();
+        },
+        error: (err) =>
+          console.log('%c Error:', 'color:red', ` ${err.message}`),
+      });
+  }
+
   /*-----------------------------------------------------------------------------
   # Description: A function to shuffle the elments of an array (list) of any type
   #------------------------------------------------------------------------------
@@ -79,12 +106,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   /* Component Lifecycle Hooks */
   ngOnInit(): void {
-    /* Get All Products data on component initialiation */
-    this.getAllProductsData();
+    /* Get All Products existing on wishlist on component initialiation */
+    this.getLoggedUserWishlist();
   }
 
   ngOnDestroy(): void {
-    /* Unsubscribe from All Products observable on component destruction */
+    /* Unsubscribe from allProductsSubscription on component destruction */
     this.allProductsSubscription.unsubscribe();
+    /* Unsubscribe from loggedUserWishlistSubscription on component destruction */
+    this.loggedUserWishlistSubscription.unsubscribe();
   }
 }

@@ -1,4 +1,3 @@
-import { response } from 'express';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { OrdersService } from '../../core/services/orders/orders.service';
 import { AuthenticationService } from '../../core/services/Authentication/authentication.service';
@@ -55,5 +54,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
     /* Get specific user orders on component initialization */
     this.getSpecificUserOrdersData(this.signinDecodedToken?.id);
   }
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    /* Unsubscribe from getSpecificUserOrdersSubscription subscription on component destruction */
+    this.getSpecificUserOrdersSubscription.unsubscribe();
+  }
 }
