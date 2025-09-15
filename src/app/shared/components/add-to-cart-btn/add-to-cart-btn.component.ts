@@ -38,6 +38,8 @@ export class AddToCartBtnComponent {
       .subscribe({
         next: (response) => {
           if (response.status === 'success') {
+            /* Set cart items count */
+            this.cartService.cartItemsCount.set(response.numOfCartItems);
             /* Show a toastr message to inform the user the product is added to cart successfully */
             this.toastrService.success(response.message, 'Prestora');
           }

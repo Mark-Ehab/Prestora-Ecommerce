@@ -64,6 +64,8 @@ export class CartComponent implements OnInit, OnDestroy {
         next: (response) => {
           if (response.status === 'success') {
             this.cartDetails = response.data;
+            /* Set cart items count */
+            this.cartService.cartItemsCount.set(response.numOfCartItems);
             this.toastrService.success(
               'Product is successfully removed from your cart',
               'Prestora'
@@ -99,6 +101,8 @@ export class CartComponent implements OnInit, OnDestroy {
           if (response.status === 'success') {
             this.cartDetails = response.data;
             if (!productQuantity) {
+              /* Set cart items count */
+              this.cartService.cartItemsCount.set(response.numOfCartItems);
               this.toastrService.success(
                 'Product is successfully removed from your cart',
                 'Prestora'

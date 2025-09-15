@@ -59,6 +59,8 @@ export class WishlistBtnComponent implements OnInit {
         next: (response) => {
           /* Check if product is added to wishlist successfully */
           if (response.status === 'success') {
+            /* Set wishlist items count */
+            this.wishlistService.wishlistItemsCount.set(response.data.length);
             /* Show to the user that product is added successfully to wishlist */
             this.toastrService.success(`${response.message}`, 'Prestora');
           }
@@ -73,6 +75,8 @@ export class WishlistBtnComponent implements OnInit {
           next: (response) => {
             /* Check if product is removed from wishlist successfully */
             if (response.status === 'success') {
+              /* Set wishlist items count */
+              this.wishlistService.wishlistItemsCount.set(response.data.length);
               /* Show to the user that product is removed successfully from wishlist */
               this.toastrService.info(
                 `${response.message.replace('to', 'from')}`,

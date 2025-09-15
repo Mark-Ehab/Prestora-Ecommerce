@@ -17,6 +17,7 @@ export class WishlistService {
 
   /* Properties */
   wishlist: WritableSignal<Product[]> = signal([]);
+  wishlistItemsCount: WritableSignal<Number> = signal(0);
 
   /* Methods */
   /*-----------------------------------------------------------------------------

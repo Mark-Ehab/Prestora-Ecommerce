@@ -90,15 +90,25 @@
         class="flex items-center justify-center order-1 md:order-2 h-[2.3423rem]"
       >
         <ul class="flex items-center justify-center space-x-4">
-          <li>
+          <li class="relative">
             <a routerLinkActive="!text-main" routerLink="wishlist"
               ><i class="fas fa-heart fa-xl hover:text-main"></i
             ></a>
+            <div
+              class="bg-main px-1 text-[.5625rem] absolute bottom-[70%] start-[70%] rounded-sm text-white"
+            >
+              {{ wishlistProductsCount() }}
+            </div>
           </li>
-          <li>
+          <li class="relative">
             <a routerLinkActive="!text-main" routerLink="cart">
               <i class="fas fa-cart-shopping fa-xl hover:text-main"></i
             ></a>
+            <div
+              class="bg-main px-1 text-[.5625rem] absolute bottom-[70%] start-[70%] rounded-sm text-white"
+            >
+              {{ cartProductsCount() }}
+            </div>
           </li>
           <li>
             <i
