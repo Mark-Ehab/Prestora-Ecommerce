@@ -19,22 +19,6 @@ export class CartService {
 
   /* Methods */
   /*-----------------------------------------------------------------------------
-  # Description: A helper function that gets the cart request header each time
-  # called
-  #------------------------------------------------------------------------------
-  # @params: void
-  #------------------------------------------------------------------------------
-  # return type: object
-  -----------------------------------------------------------------------------*/
-  private getCartRequestHeader(): object {
-    return {
-      headers: {
-        token: this.cookieService.get('signinToken'),
-      },
-    };
-  }
-
-  /*-----------------------------------------------------------------------------
   # Description: A function that gets an obeservable<any> that holds the response  
   # data of a logged user cart after a product is added to it through posting 
   # product's id to the backend using Route E-Commerce API on '/cart' endpoint
@@ -45,13 +29,9 @@ export class CartService {
   # return type: Observable<any>
   -----------------------------------------------------------------------------*/
   addProductToCart(addedProductId: string): Observable<any> {
-    return this.httpClient.post(
-      `${environment.ecommerceBaseURl}/cart`,
-      {
-        productId: addedProductId,
-      },
-      this.getCartRequestHeader()
-    );
+    return this.httpClient.post(`${environment.ecommerceBaseURl}/cart`, {
+      productId: addedProductId,
+    });
   }
 
   /*-----------------------------------------------------------------------------
@@ -63,10 +43,7 @@ export class CartService {
   # return type: Observable<any>
   -----------------------------------------------------------------------------*/
   getCart(): Observable<any> {
-    return this.httpClient.get(
-      `${environment.ecommerceBaseURl}/cart`,
-      this.getCartRequestHeader()
-    );
+    return this.httpClient.get(`${environment.ecommerceBaseURl}/cart`);
   }
 
   /*-----------------------------------------------------------------------------
@@ -81,8 +58,7 @@ export class CartService {
   -----------------------------------------------------------------------------*/
   removeSpecificCartProduct(removedProductId: string): Observable<any> {
     return this.httpClient.delete(
-      `${environment.ecommerceBaseURl}/cart/${removedProductId}`,
-      this.getCartRequestHeader()
+      `${environment.ecommerceBaseURl}/cart/${removedProductId}`
     );
   }
 
@@ -106,8 +82,7 @@ export class CartService {
       `${environment.ecommerceBaseURl}/cart/${updatedProductId}`,
       {
         count: productQuantity,
-      },
-      this.getCartRequestHeader()
+      }
     );
   }
 
@@ -121,9 +96,6 @@ export class CartService {
   # return type: Observable<any>
   -----------------------------------------------------------------------------*/
   clearCart(): Observable<any> {
-    return this.httpClient.delete(
-      `${environment.ecommerceBaseURl}/cart`,
-      this.getCartRequestHeader()
-    );
+    return this.httpClient.delete(`${environment.ecommerceBaseURl}/cart`);
   }
 }

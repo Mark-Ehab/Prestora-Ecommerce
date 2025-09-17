@@ -6,10 +6,11 @@ import { Subscription } from 'rxjs';
 import { Order } from './models/order.interface';
 import { TermPipe } from '../../shared/pipes/Term/term-pipe';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
-  imports: [TermPipe, CurrencyPipe],
+  imports: [RouterLink, TermPipe, CurrencyPipe],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
 })

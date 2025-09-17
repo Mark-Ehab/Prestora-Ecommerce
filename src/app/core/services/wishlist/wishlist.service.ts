@@ -21,22 +21,6 @@ export class WishlistService {
 
   /* Methods */
   /*-----------------------------------------------------------------------------
-  # Description: A helper function that gets the wishlist request header each time
-  # called
-  #------------------------------------------------------------------------------
-  # @params: void
-  #------------------------------------------------------------------------------
-  # return type: object
-  -----------------------------------------------------------------------------*/
-  private getWishlistRequestHeader(): object {
-    return {
-      headers: {
-        token: this.cookieService.get('signinToken'),
-      },
-    };
-  }
-
-  /*-----------------------------------------------------------------------------
   # Description: A function to get an obeservable<any> that holds the data of a
   # logged user wishlist got from Route E-Commerce API on '/wishlist' endpoint
   #------------------------------------------------------------------------------
@@ -45,10 +29,7 @@ export class WishlistService {
   # return type: Observable<any>
   -----------------------------------------------------------------------------*/
   getLoggedUserWishlist(): Observable<any> {
-    return this.httpClient.get(
-      `${environment.ecommerceBaseURl}/wishlist`,
-      this.getWishlistRequestHeader()
-    );
+    return this.httpClient.get(`${environment.ecommerceBaseURl}/wishlist`);
   }
 
   /*-----------------------------------------------------------------------------
@@ -62,13 +43,9 @@ export class WishlistService {
   # return type: Observable<any>
   -----------------------------------------------------------------------------*/
   addProductToWishlist(addedProductId: string): Observable<any> {
-    return this.httpClient.post(
-      `${environment.ecommerceBaseURl}/wishlist`,
-      {
-        productId: addedProductId,
-      },
-      this.getWishlistRequestHeader()
-    );
+    return this.httpClient.post(`${environment.ecommerceBaseURl}/wishlist`, {
+      productId: addedProductId,
+    });
   }
 
   /*-----------------------------------------------------------------------------
@@ -83,8 +60,7 @@ export class WishlistService {
   -----------------------------------------------------------------------------*/
   removeProductFromWishlist(removedProductId: string): Observable<any> {
     return this.httpClient.delete(
-      `${environment.ecommerceBaseURl}/wishlist/${removedProductId}`,
-      this.getWishlistRequestHeader()
+      `${environment.ecommerceBaseURl}/wishlist/${removedProductId}`
     );
   }
 }

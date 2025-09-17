@@ -16,22 +16,6 @@ export class OrdersService {
 
   /* Methods */
   /*-----------------------------------------------------------------------------
-  # Description: A helper function that gets the order request header each time
-  # called
-  #------------------------------------------------------------------------------
-  # @params: void
-  #------------------------------------------------------------------------------
-  # return type: object
-  -----------------------------------------------------------------------------*/
-  private getOrderRequestHeader(): object {
-    return {
-      headers: {
-        token: this.cookieService.get('signinToken'),
-      },
-    };
-  }
-
-  /*-----------------------------------------------------------------------------
   # Description: A function to get an obeservable<any> that holds the status of a
   # cash payment for a logged user cart through Route E-Commerce API on '/orders' 
   # endpoint
@@ -45,8 +29,7 @@ export class OrdersService {
   createCashOrder(cartId: string, shippingAddress: Object): Observable<any> {
     return this.httpClient.post(
       `${environment.ecommerceBaseURl}/orders/${cartId}`,
-      shippingAddress,
-      this.getOrderRequestHeader()
+      shippingAddress
     );
   }
 
@@ -64,8 +47,7 @@ export class OrdersService {
   createVisaOrder(cartId: string, shippingAddress: Object): Observable<any> {
     return this.httpClient.post(
       `${environment.ecommerceBaseURl}/orders/checkout-session/${cartId}?url=${environment.hostURl}`,
-      shippingAddress,
-      this.getOrderRequestHeader()
+      shippingAddress
     );
   }
 

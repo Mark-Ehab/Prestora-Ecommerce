@@ -41,6 +41,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.getCartSubscription = this.cartService.getCart().subscribe({
       next: (response) => {
         this.cartDetails = response.data;
+        this.cartService.cartItemsCount.set(response.numOfCartItems);
       },
       error: (err) => console.log('%c Error: ', 'color:red', err.error.message),
     });
@@ -66,7 +67,7 @@ export class CartComponent implements OnInit, OnDestroy {
             this.cartDetails = response.data;
             /* Set cart items count */
             this.cartService.cartItemsCount.set(response.numOfCartItems);
-            this.toastrService.success(
+            this.toastrService.info(
               'Product is successfully removed from your cart',
               'Prestora'
             );
@@ -103,7 +104,7 @@ export class CartComponent implements OnInit, OnDestroy {
             if (!productQuantity) {
               /* Set cart items count */
               this.cartService.cartItemsCount.set(response.numOfCartItems);
-              this.toastrService.success(
+              this.toastrService.info(
                 'Product is successfully removed from your cart',
                 'Prestora'
               );

@@ -16,9 +16,17 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { provideToastr } from 'ngx-toastr';
+import { headersInterceptor } from './core/interceptors/headers/headers-interceptor';
+import { errorsInterceptor } from './core/interceptors/errors/errors-interceptor';
+import { loadingInterceptor } from './core/interceptors/loading/loading-interceptor';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,9 +41,18 @@ export const appConfig: ApplicationConfig = {
       ]
     ),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(...[withFetch()]),
+    provideHttpClient(
+      ...[
+        withFetch(),
+        withInterceptors([
+          headersInterceptor,
+          errorsInterceptor,
+          loadingInterceptor,
+        ]),
+      ]
+    ),
     provideAnimations(),
-    importProvidersFrom(CookieService),
+    importProvidersFrom(CookieService, NgxSpinnerService),
     provideToastr(),
   ],
 };
