@@ -15,18 +15,10 @@ import { ProductDetailsComponent } from './features/product-details/product-deta
 import { authGuard } from './core/guards/AuthGuard/auth-guard';
 import { isLoggedInGuard } from './core/guards/isLoggedInGuard/is-logged-in-guard';
 import { CheckoutComponent } from './features/checkout/checkout.component';
+import { ForgetPasswordComponent } from './core/auth/forget-password/forget-password.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  {
-    path: '',
-    component: AuthComponent,
-    canActivate: [isLoggedInGuard],
-    children: [
-      { path: 'login', component: LoginComponent, title: 'Login' },
-      { path: 'signup', component: SignupComponent, title: 'Signup' },
-    ],
-  },
   {
     path: '',
     component: BlankComponent,
@@ -85,6 +77,20 @@ export const routes: Routes = [
         component: OrdersComponent,
         title: 'All Orders',
         canActivate: [authGuard],
+      },
+    ],
+  },
+  {
+    path: '',
+    component: AuthComponent,
+    canActivate: [isLoggedInGuard],
+    children: [
+      { path: 'login', component: LoginComponent, title: 'Login' },
+      { path: 'signup', component: SignupComponent, title: 'Signup' },
+      {
+        path: 'forgetpassword',
+        component: ForgetPasswordComponent,
+        title: 'Forget Password',
       },
     ],
   },

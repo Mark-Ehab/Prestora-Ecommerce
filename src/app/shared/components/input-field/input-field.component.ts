@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { AlertComponent } from '../../../core/auth/shared/components/alert/alert.component';
+import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'input-field',

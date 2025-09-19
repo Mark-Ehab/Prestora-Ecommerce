@@ -6,6 +6,7 @@ import { ProductCardComponent } from '../../../../shared/components/product-card
 import { RouterLink } from '@angular/router';
 import { OnSalePipe } from '../../../../shared/pipes/OnSale/on-sale-pipe';
 import { WishlistService } from '../../../../core/services/wishlist/wishlist.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'popular-products',
@@ -19,6 +20,8 @@ export class PopularProductsComponent implements OnInit, OnDestroy {
   private readonly productsService = inject(ProductsService);
   /* Inject WishlistService service through function injection */
   private readonly wishlistService = inject(WishlistService);
+  /* Inject CookieService service through function injection */
+  private readonly cookieService = inject(CookieService);
 
   /* Properties */
   allProducts: Product[] = [] as Product[];
@@ -89,14 +92,24 @@ export class PopularProductsComponent implements OnInit, OnDestroy {
 
   /* Component Lifecycle Hooks */
   ngOnInit(): void {
-    /* Get All Products existing on wishlist on component initialiation */
-    this.getLoggedUserWishlist();
+    /* Check if user is already logged in */
+    if (this.cookieService.check('signinToken')) {
+      /* Get all products existing on wishlist on component initialiation */
+      this.getLoggedUserWishlist();
+    } else {
+      /* Get all products */
+      this.getAllProductsData();
+    }
   }
 
   ngOnDestroy(): void {
-    /* Unsubscribe from allProductsSubscription on component destruction */
-    this.allProductsSubscription.unsubscribe();
-    /* Unsubscribe from allProductsSubscription on component destruction */
-    this.loggedUserWishlistSubscription.unsubscribe();
+    /* Check if user is already logged in */
+    if (this.cookieService.check('signinToken')) {
+      /* Unsubscribe from loggedUserWishlistSubscription on component destruction */
+      this.loggedUserWishlistSubscription.unsubscribe();
+    } else {
+      /* Unsubscribe from allProductsSubscription on component destruction */
+      this.allProductsSubscription.unsubscribe();
+    }
   }
 }

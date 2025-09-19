@@ -2,6 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { CartService } from '../../../features/cart/services/cart/cart.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'add-to-cart-btn',
@@ -15,6 +16,8 @@ export class AddToCartBtnComponent {
   private readonly cartService = inject(CartService);
   /* Inject ToastrService service through function injection */
   private readonly toastrService = inject(ToastrService);
+  /* Inject CookieService service through function injection */
+  private readonly cookieService = inject(CookieService);
 
   /* Properties */
   private addProductToCartSubscription: Subscription = new Subscription();
@@ -32,20 +35,29 @@ export class AddToCartBtnComponent {
   # return type: void
   -----------------------------------------------------------------------------*/
   addProductDataToCart(productId: string): void {
-    this.addProductToCartSubscription.unsubscribe();
-    this.addProductToCartSubscription = this.cartService
-      .addProductToCart(productId)
-      .subscribe({
-        next: (response) => {
-          if (response.status === 'success') {
-            /* Set cart items count */
-            this.cartService.cartItemsCount.set(response.numOfCartItems);
-            /* Show a toastr message to inform the user the product is added to cart successfully */
-            this.toastrService.success(response.message, 'Prestora');
-          }
-        },
-        error: (err) =>
-          console.log('%c Error: ', 'color:red', err.error.message),
-      });
+    /* Check if the user is logged in */
+    if (this.cookieService.check('signinToken')) {
+      this.addProductToCartSubscription.unsubscribe();
+      this.addProductToCartSubscription = this.cartService
+        .addProductToCart(productId)
+        .subscribe({
+          next: (response) => {
+            if (response.status === 'success') {
+              /* Set cart items count */
+              this.cartService.cartItemsCount.set(response.numOfCartItems);
+              /* Show a toastr message to inform the user the product is added to cart successfully */
+              this.toastrService.success(response.message, 'Prestora');
+            }
+          },
+          error: (err) =>
+            console.log('%c Error: ', 'color:red', err.error.message),
+        });
+    } else {
+      /* Notify the user to login */
+      this.toastrService.info(
+        'Please login first to add this product to your cart',
+        'Prestora'
+      );
+    }
   }
 }

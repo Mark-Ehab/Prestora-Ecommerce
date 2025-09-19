@@ -66,6 +66,11 @@
     @apply w-full mb-5 bg-main rounded-full text-white p-2 text-xl hover:bg-2nd cursor-pointer disabled:bg-2nd
   }
 
+  .forget-password-btns
+  {
+    @apply w-full mb-5 bg-main rounded-full text-white p-2 text-xl hover:bg-2nd cursor-pointer disabled:bg-2nd
+  }
+
   .proceed-to-checkout-btn
   {
     @apply block text-center w-full bg-main rounded-full text-white p-2 text-lg hover:bg-2nd cursor-pointer disabled:bg-2nd

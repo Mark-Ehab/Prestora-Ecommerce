@@ -7,7 +7,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { DecodedSigninToken } from '../../../core/models/decoded-signin-token.interface';
 import { CartService } from '../../../features/cart/services/cart/cart.service';
 import { WishlistService } from '../../../core/services/wishlist/wishlist.service';
-import { response } from 'express';
 
 @Component({
   selector: 'app-navbar',

@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AlertComponent } from '../../core/auth/shared/components/alert/alert.component';
+import { AlertComponent } from '../../shared/components/alert/alert.component';
 import { OrdersService } from '../../core/services/orders/orders.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';

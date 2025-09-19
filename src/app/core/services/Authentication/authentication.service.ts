@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { DecodedSigninToken } from '../../models/decoded-signin-token.interface';
 
 @Injectable({
@@ -85,5 +85,55 @@ export class AuthenticationService {
       console.log('%c Error: ', 'color:red', error);
     }
     return decodedJWT;
+  }
+
+  /*-----------------------------------------------------------------------------
+  # Description: A function to get an obeservable<any> that holds the status after 
+  # an email is sent to the backend to verify if it's registered in the system or 
+  # not through Route E-Commerce API on '/auth/forgotPasswords' endpoint to proceed 
+  # in forget password proccess and recover the account
+  #------------------------------------------------------------------------------
+  # @params: forgotPasswordBody:Object
+  #------------------------------------------------------------------------------
+  # return type: Observable<any>
+  -----------------------------------------------------------------------------*/
+  forgotPassword(forgotPasswordBody: Object): Observable<any> {
+    return this.httpClient.post(
+      `${environment.ecommerceBaseURl}/auth/forgotPasswords`,
+      forgotPasswordBody
+    );
+  }
+
+  /*-----------------------------------------------------------------------------
+  # Description: A function to get an obeservable<any> that holds the status after 
+  # a reset code is sent to the backend through Route E-Commerce API on '/auth/
+  # verifyResetCode' endpoint to proceed in forget password proccess, reset the
+  # old password with new one and recover the account
+  #------------------------------------------------------------------------------
+  # @params: verifyResetCodeBody:Object
+  #------------------------------------------------------------------------------
+  # return type: Observable<any>
+  -----------------------------------------------------------------------------*/
+  verifyResetCode(verifyResetCodeBody: Object): Observable<any> {
+    return this.httpClient.post(
+      `${environment.ecommerceBaseURl}/auth/verifyResetCode`,
+      verifyResetCodeBody
+    );
+  }
+
+  /*-----------------------------------------------------------------------------
+  # Description: A function to get an obeservable<any> that holds the authentication 
+  # token after a new password is set and sent to the backend through Route E-Commerce 
+  # API on '/auth/resetPassword' endpoint to recover the account
+  #------------------------------------------------------------------------------
+  # @params: resetPassword:Object
+  #------------------------------------------------------------------------------
+  # return type: Observable<any>
+  -----------------------------------------------------------------------------*/
+  resetPassword(resetPasswordBody: Object): Observable<any> {
+    return this.httpClient.put(
+      `${environment.ecommerceBaseURl}/auth/resetPassword`,
+      resetPasswordBody
+    );
   }
 }

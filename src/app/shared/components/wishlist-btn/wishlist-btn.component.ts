@@ -2,6 +2,7 @@ import { Component, HostListener, inject, Input, OnInit } from '@angular/core';
 import { WishlistService } from '../../../core/services/wishlist/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../../../core/models/product.interface';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'wishlist-btn',
@@ -15,6 +16,8 @@ export class WishlistBtnComponent implements OnInit {
   private readonly wishlistService = inject(WishlistService);
   /* Inject ToastrService service through function injection */
   private readonly toastrService = inject(ToastrService);
+  /* Inject CookieService service through function injection */
+  private readonly cookieService = inject(CookieService);
 
   /* Properties */
   @Input({ required: true }) productId!: string;
@@ -52,45 +55,60 @@ export class WishlistBtnComponent implements OnInit {
   # return type: void
   -----------------------------------------------------------------------------*/
   toggleWishlistBtnOnClick(productId: string | null): void {
-    /* Check if product is in wishlist or not */
-    if (!this.isProductAddedToWishlist) {
-      /* Add the product to wishlist */
-      this.wishlistService.addProductToWishlist(productId as string).subscribe({
-        next: (response) => {
-          /* Check if product is added to wishlist successfully */
-          if (response.status === 'success') {
-            /* Set wishlist items count */
-            this.wishlistService.wishlistItemsCount.set(response.data.length);
-            /* Show to the user that product is added successfully to wishlist */
-            this.toastrService.success(`${response.message}`, 'Prestora');
-          }
-        },
-        error: (err) => console.log('%c Error: ', 'color:red', err.message),
-      });
+    /* Check if the user is logged in */
+    if (this.cookieService.check('signinToken')) {
+      /* Check if product is in wishlist or not */
+      if (!this.isProductAddedToWishlist) {
+        /* Add the product to wishlist */
+        this.wishlistService
+          .addProductToWishlist(productId as string)
+          .subscribe({
+            next: (response) => {
+              /* Check if product is added to wishlist successfully */
+              if (response.status === 'success') {
+                /* Set wishlist items count */
+                this.wishlistService.wishlistItemsCount.set(
+                  response.data.length
+                );
+                /* Show to the user that product is added successfully to wishlist */
+                this.toastrService.success(`${response.message}`, 'Prestora');
+              }
+            },
+            error: (err) => console.log('%c Error: ', 'color:red', err.message),
+          });
+      } else {
+        /* Remove the product from wishlist */
+        this.wishlistService
+          .removeProductFromWishlist(productId as string)
+          .subscribe({
+            next: (response) => {
+              /* Check if product is removed from wishlist successfully */
+              if (response.status === 'success') {
+                /* Set wishlist items count */
+                this.wishlistService.wishlistItemsCount.set(
+                  response.data.length
+                );
+                /* Show to the user that product is removed successfully from wishlist */
+                this.toastrService.info(
+                  `${response.message.replace('to', 'from')}`,
+                  'Prestora'
+                );
+              }
+              /* Get wishlist */
+              this.getLoggedUserWishlist();
+            },
+            error: (err) => console.log('%c Error: ', 'color:red', err.message),
+          });
+      }
+      /* Toggle state of fav button */
+      this.isProductAddedToWishlist = !this.isProductAddedToWishlist;
     } else {
-      /* Remove the product from wishlist */
-      this.wishlistService
-        .removeProductFromWishlist(productId as string)
-        .subscribe({
-          next: (response) => {
-            /* Check if product is removed from wishlist successfully */
-            if (response.status === 'success') {
-              /* Set wishlist items count */
-              this.wishlistService.wishlistItemsCount.set(response.data.length);
-              /* Show to the user that product is removed successfully from wishlist */
-              this.toastrService.info(
-                `${response.message.replace('to', 'from')}`,
-                'Prestora'
-              );
-            }
-            /* Get wishlist */
-            this.getLoggedUserWishlist();
-          },
-          error: (err) => console.log('%c Error: ', 'color:red', err.message),
-        });
+      /* Notify the user to login */
+      this.toastrService.info(
+        'Please login first to add this product to your wishlist',
+        'Prestora'
+      );
     }
-    /* Toggle state of fav button */
-    this.isProductAddedToWishlist = !this.isProductAddedToWishlist;
   }
 
   /*-----------------------------------------------------------------------------

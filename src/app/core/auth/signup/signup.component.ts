@@ -8,8 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthenticationService } from '../../services/Authentication/authentication.service';
-import { AlertComponent } from '../shared/components/alert/alert.component';
-import { SuccessAlertComponent } from '../shared/components/success-alert/success-alert.component';
+import { AlertComponent } from '../../../shared/components/alert/alert.component';
+import { SuccessAlertComponent } from '../../../shared/components/success-alert/success-alert.component';
 import { Subscription } from 'rxjs';
 import { InputFieldComponent } from '../../../shared/components/input-field/input-field.component';
 
