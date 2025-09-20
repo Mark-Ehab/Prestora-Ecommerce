@@ -84,7 +84,7 @@ export class BrandsSliderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    /* Unsubscribe from All Brands observable on component destruction */
+    /* Unsubscribe from allBrandsSubscription observable subscription on component destruction */
     this.allBrandsSubscription.unsubscribe();
   }
 }

@@ -86,7 +86,7 @@ export class CategoriesSliderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    /* Unsubscribe from All Categories observable on component destruction */
+    /* Unsubscribe from allCategoriesSubscription observable subscription on component destruction */
     this.allCategoriesSubscription.unsubscribe();
   }
 }

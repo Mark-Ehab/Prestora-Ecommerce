@@ -12,6 +12,7 @@ import { AlertComponent } from '../../shared/components/alert/alert.component';
 import { OrdersService } from '../../core/services/orders/orders.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from '../cart/services/cart/cart.service';
 @Component({
   selector: 'app-checkout',
   imports: [
@@ -29,6 +30,8 @@ export class CheckoutComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   /* Inject OrdersService service through function injection */
   private readonly ordersService = inject(OrdersService);
+  /* Inject CartService service through function injection */
+  private readonly cartService = inject(CartService);
   /* Inject ActivatedRoute Service through function injection*/
   private readonly activatedRoute = inject(ActivatedRoute);
   /* Inject ToastrService Service through function injection*/
@@ -103,6 +106,8 @@ export class CheckoutComponent implements OnInit {
               'Order is placed successfully',
               'Prestora'
             );
+            /* Reset cartItemsCount signal */
+            this.cartService.cartItemsCount.set(0);
             /* Navigate to allorders page */
             this.router.navigate(['/allorders']);
           }

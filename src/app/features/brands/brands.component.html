@@ -1,1 +1,61 @@
-<p>brands works!</p>
+<section id="brands" class="pt-5 pb-10 bg-bg-main">
+  <div class="custom-container">
+    <nav class="flex" aria-label="Breadcrumb">
+      <ol
+        class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+      >
+        <li class="inline-flex items-center">
+          <a
+            routerLink="/home"
+            class="inline-flex items-center text-sm font-medium text-main hover:text-main cursor-pointer"
+          >
+            Home
+          </a>
+        </li>
+        <li aria-current="page">
+          <div class="flex items-center">
+            <svg
+              class="rtl:rotate-180 w-2 h-2 text-gray-400 mx-1 font-light"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+            <span
+              class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"
+              >Brands</span
+            >
+          </div>
+        </li>
+      </ol>
+    </nav>
+    <div class="border-[.1875rem] rounded-3xl border-main mt-7 mb-10">
+      <div class="flex justify-center items-center">
+        <h2 class="text-text-main text-[2.5rem] font-semibold">All Brands</h2>
+      </div>
+    </div>
+    <div
+      class="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+    >
+      @for (brand of allBrands; track brand._id) {
+      <figure
+        class="overflow-hidden rounded-full size-[12.5rem] border border-main shadow-xl cursor-pointer"
+      >
+        <img
+          [src]="brand.image"
+          [alt]="brand.name"
+          class="size-full object-fill"
+        />
+      </figure>
+      }
+    </div>
+  </div>
+</section>
