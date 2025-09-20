@@ -16,7 +16,7 @@ export class WishlistService {
   private readonly cookieService = inject(CookieService);
 
   /* Properties */
-  wishlist: WritableSignal<Product[]> = signal([]);
+  wishlist: WritableSignal<Product[]> = signal([] as Product[]);
   wishlistItemsCount: WritableSignal<Number> = signal(0);
 
   /* Methods */
