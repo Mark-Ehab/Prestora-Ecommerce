@@ -21,7 +21,7 @@ export class WishlistBtnComponent implements OnInit {
 
   /* Properties */
   @Input({ required: true }) productId!: string;
-  @Input({ required: true }) wishlist!: Product[];
+  @Input({ required: true }) wishlist!: Product[] | null;
   updatedWishlist!: Product[];
   isProductAddedToWishlist: boolean = false;
   isAddToWishlistBtnHovered: boolean = false;
@@ -121,7 +121,7 @@ export class WishlistBtnComponent implements OnInit {
   -----------------------------------------------------------------------------*/
   checkProductWishlistPresense(productId: string) {
     /* Check if product is is existing on wishlist */
-    if (this.wishlist.find((product) => product.id === productId)) {
+    if (this.wishlist?.find((product) => product.id === productId)) {
       this.isProductAddedToWishlist = true;
     }
   }

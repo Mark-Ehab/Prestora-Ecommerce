@@ -16,6 +16,8 @@ import { authGuard } from './core/guards/AuthGuard/auth-guard';
 import { isLoggedInGuard } from './core/guards/isLoggedInGuard/is-logged-in-guard';
 import { CheckoutComponent } from './features/checkout/checkout.component';
 import { ForgetPasswordComponent } from './core/auth/forget-password/forget-password.component';
+import { cartItemResolver } from './core/resolvers/CartItem/cart-item-resolver';
+import { wishlistItemsResolver } from './core/resolvers/WishlistItems/wishlist-items-resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -59,12 +61,14 @@ export const routes: Routes = [
         component: WishlistComponent,
         title: 'Wishlist',
         canActivate: [authGuard],
+        resolve: { wishlistItemsData: wishlistItemsResolver },
       },
       {
         path: 'cart',
         component: CartComponent,
         title: 'Cart',
         canActivate: [authGuard],
+        resolve: { cartData: cartItemResolver },
       },
       {
         path: 'checkout/:id',

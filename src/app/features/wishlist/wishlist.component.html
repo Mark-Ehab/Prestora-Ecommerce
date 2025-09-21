@@ -37,7 +37,7 @@
         </li>
       </ol>
     </nav>
-    @if (this.updatedWishList() && wishList.length) {
+    @if (updatedWishlist()?.length || wishList?.length) {
     <div class="border-[.1875rem] rounded-3xl border-main mt-7 mb-10">
       <div class="flex justify-center items-center">
         <h2 class="text-text-main text-[2.5rem] font-semibold">My Wishlist</h2>

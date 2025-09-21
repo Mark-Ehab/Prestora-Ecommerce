@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CartService } from './services/cart/cart.service';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Cart } from './models/cart.interface';
 import { CurrencyPipe } from '@angular/common';
@@ -12,21 +12,29 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
-export class CartComponent implements OnInit, OnDestroy {
+export class CartComponent {
   /* Dependency Injection */
   /* Inject CartService service through function injection */
   private readonly cartService = inject(CartService);
   /* Inject ToastrService service through function injection */
   private readonly toastrService = inject(ToastrService);
+  /* Inject ActivatedRoute service through function injection */
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   /* Properties */
-  cartDetails: Cart = {} as Cart;
-  private getCartSubscription!: Subscription;
+  cartDetails!: Cart;
+  private getCartSubscription: Subscription = new Subscription();
   private clearCartSubscription: Subscription = new Subscription();
   private removeSpecificCartProductSubscription: Subscription =
     new Subscription();
   private updateSpecificCartProductQuantitySubscription: Subscription =
     new Subscription();
+
+  /* Constructor */
+  constructor() {
+    /* Get cart data from resolver */
+    this.cartDetails = this.activatedRoute.snapshot.data['cartData'].data;
+  }
 
   /* Methods */
   /*-----------------------------------------------------------------------------
@@ -38,6 +46,8 @@ export class CartComponent implements OnInit, OnDestroy {
   # return type: void
   -----------------------------------------------------------------------------*/
   getCartData(): void {
+    /* Unsubscribe from Get Cart observable on component destruction */
+    this.getCartSubscription.unsubscribe();
     this.getCartSubscription = this.cartService.getCart().subscribe({
       next: (response) => {
         this.cartDetails = response.data;
@@ -135,15 +145,5 @@ export class CartComponent implements OnInit, OnDestroy {
       },
       error: (err) => console.log('%c Error: ', 'color:red', err.error.message),
     });
-  }
-
-  /* Component Lifecycle Hooks */
-  ngOnInit(): void {
-    /* Get cart data on Cart component initialization */
-    this.getCartData();
-  }
-  ngOnDestroy(): void {
-    /* Unsubscribe from Get Cart observable on component destruction */
-    this.getCartSubscription.unsubscribe();
   }
 }

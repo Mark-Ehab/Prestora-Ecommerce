@@ -6,7 +6,7 @@ import {
   OnInit,
   Signal,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { WishlistService } from '../../core/services/wishlist/wishlist.service';
 import { Product } from '../../core/models/product.interface';
 import { Subscription } from 'rxjs';
@@ -22,14 +22,29 @@ export class WishlistComponent implements OnInit, OnDestroy {
   /* Dependency Injection */
   /* Inject WishlistService service through function injection */
   private readonly wishlistService = inject(WishlistService);
+  /* Inject ActivatedRoute service through function injection */
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   /* Properties */
-  updatedWishList: Signal<Product[]> = computed(() => {
-    this.wishList = this.wishlistService.wishlist();
+  updatedWishlist: Signal<Product[] | null> = computed(() => {
+    if (this.wishlistService.wishlist()?.length) {
+      this.wishListIsUpdated = true;
+    }
+    if (this.wishListIsUpdated) {
+      this.wishList = this.wishlistService.wishlist();
+    }
+
     return this.wishlistService.wishlist();
   });
-  wishList: Product[] = [] as Product[];
-  private loggedUserWishlistSubscription!: Subscription;
+  wishList!: Product[] | null;
+  wishListIsUpdated: boolean = false;
+  private loggedUserWishlistSubscription: Subscription = new Subscription();
+
+  /* constructor */
+  constructor() {
+    /* Get Wishlist data from resolver */
+    this.wishList = this.activatedRoute.snapshot.data['wishlistItemsData'].data;
+  }
 
   /* Methods */
   /*-----------------------------------------------------------------------------
@@ -41,10 +56,15 @@ export class WishlistComponent implements OnInit, OnDestroy {
   # return type: void
   -----------------------------------------------------------------------------*/
   getLoggedUserWishlist(): void {
+    /* Unsubscribe from loggedUserWishlistSubscription on component destruction */
+    this.loggedUserWishlistSubscription.unsubscribe();
     this.loggedUserWishlistSubscription = this.wishlistService
       .getLoggedUserWishlist()
       .subscribe({
-        next: (response) => (this.wishList = response.data),
+        next: (response) => {
+          this.wishList = response.data;
+          // this.wishlistService.wishlist.set(false);
+        },
         error: (err) =>
           console.log('%c Error:', 'color:red', ` ${err.message}`),
       });
@@ -53,11 +73,11 @@ export class WishlistComponent implements OnInit, OnDestroy {
   /* Component Lifecycle Hooks */
   ngOnInit(): void {
     /* Get all products existing in wishlist */
-    this.getLoggedUserWishlist();
+    // this.getLoggedUserWishlist();
   }
 
   ngOnDestroy(): void {
     /* Unsubscribe from loggedUserWishlistSubscription on component destruction */
-    this.loggedUserWishlistSubscription.unsubscribe();
+    // this.loggedUserWishlistSubscription.unsubscribe();
   }
 }
