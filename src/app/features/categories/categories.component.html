@@ -49,7 +49,7 @@
     >
       @for (category of allCategories; track category._id) {
       <figure
-        class="overflow-hidden rounded-full size-[12.5rem] border border-main shadow-xl cursor-pointer"
+        class="overflow-hidden rounded-full size-[12.5rem] border border-main shadow-xl cursor-pointer hover:shadow-[0px_0px_30px] hover:shadow-main transition-shadow duration-300"
       >
         <img
           [src]="category.image"

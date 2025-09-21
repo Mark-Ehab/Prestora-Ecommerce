@@ -38,7 +38,7 @@
       </ol>
     </nav>
     @if(cartDetails.products.length){
-    <div class="flex justify-between items-center w-1/2 my-7">
+    <div class="flex justify-between items-center w-full lg:w-1/2 my-7">
       <div class="flex items-center gap-3">
         <h2 class="text-text-main text-3xl font-semibold">Cart</h2>
         <span
@@ -54,23 +54,21 @@
       </button>
     </div>
     <div class="grid grid-cols-12 gap-4">
-      <div class="col-span-8 flex-col gap-10">
+      <div class="col-span-12 md:col-span-8 flex-col gap-10">
         <div class="divide-y-1">
           @for (product of cartDetails.products; track product?.product?.id ) {
           <div
             [class]="{
-              'pb-6': $first,
-              'pt-6': $last,
-              'py-6': !$first && !$last
+              'pb-5': $first,
+              'pt-5': $last,
+              'py-5': !$first && !$last
             }"
             class="border-text-main"
           >
             <div
-              class="bg-white h-[10rem] w-full rounded-lg shadow-[0_0_3px] shadow-main grid grid-cols-12"
+              class="bg-white h-[10rem] w-full rounded-lg shadow-[0_0_3px] shadow-main grid grid-cols-12 md:gap-3"
             >
-              <figure
-                class="overflow-hidden col-span-3 size-full pe-10 ps-3 py-3"
-              >
+              <figure class="overflow-hidden col-span-3 size-full p-3">
                 <img
                   [src]="
                     product?.product?.imageCover ||
@@ -141,7 +139,7 @@
           }
         </div>
       </div>
-      <div class="col-span-4">
+      <div class="col-span-12 md:col-span-4">
         <div
           class="bg-white rounded-[.625rem] p-8 shadow-[0_0_3px] shadow-main"
         >
