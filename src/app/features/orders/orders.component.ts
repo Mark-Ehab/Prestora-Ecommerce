@@ -1,12 +1,9 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { OrdersService } from '../../core/services/orders/orders.service';
-import { AuthenticationService } from '../../core/services/Authentication/authentication.service';
-import { DecodedSigninToken } from '../../core/models/decoded-signin-token.interface';
-import { Subscription } from 'rxjs';
 import { Order } from './models/order.interface';
 import { TermPipe } from '../../shared/pipes/Term/term-pipe';
 import { CurrencyPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -14,18 +11,22 @@ import { RouterLink } from '@angular/router';
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
 })
-export class OrdersComponent implements OnInit, OnDestroy {
+//  implements OnInit, OnDestroy
+export class OrdersComponent {
   /* Dependency Injection */
   /* Inject OrdersService service through function injection */
   private readonly ordersService = inject(OrdersService);
-  /* Inject AuthenticationService service through function injection */
-  private readonly authenticationService = inject(AuthenticationService);
+  /* Inject ActivatedRoute service through function injection */
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   /* Properties */
-  private signinDecodedToken: DecodedSigninToken | undefined =
-    {} as DecodedSigninToken;
-  private getSpecificUserOrdersSubscription!: Subscription;
-  allOrders: Order[] = [] as Order[];
+  allOrders: Order[] = this.activatedRoute.snapshot.data['ordersList'];
+
+  /* Properties */
+  // private signinDecodedToken: DecodedSigninToken | undefined =
+  //   {} as DecodedSigninToken;
+  // private getSpecificUserOrdersSubscription!: Subscription;
+  // allOrders: Order[] = [] as Order[];
 
   /* Methods */
   /*-----------------------------------------------------------------------------
@@ -37,26 +38,26 @@ export class OrdersComponent implements OnInit, OnDestroy {
   #------------------------------------------------------------------------------
   # return type: Observable<any>
   -----------------------------------------------------------------------------*/
-  getSpecificUserOrdersData(userId: string | undefined): void {
-    this.getSpecificUserOrdersSubscription = this.ordersService
-      .getSpecificUserOrders(userId)
-      .subscribe({
-        next: (response) => {
-          this.allOrders = response;
-        },
-        error: (err) => console.log('%c Error: ', 'color:red', err.message),
-      });
-  }
+  // getSpecificUserOrdersData(userId: string | undefined): void {
+  //   this.getSpecificUserOrdersSubscription = this.ordersService
+  //     .getSpecificUserOrders(userId)
+  //     .subscribe({
+  //       next: (response) => {
+  //         this.allOrders = response;
+  //       },
+  //       error: (err) => console.log('%c Error: ', 'color:red', err.message),
+  //     });
+  // }
 
-  /* Component Lifecycle Hooks */
-  ngOnInit(): void {
-    /* Get decoded signin token */
-    this.signinDecodedToken = this.authenticationService.decodeSigninToken();
-    /* Get specific user orders on component initialization */
-    this.getSpecificUserOrdersData(this.signinDecodedToken?.id);
-  }
-  ngOnDestroy(): void {
-    /* Unsubscribe from getSpecificUserOrdersSubscription subscription on component destruction */
-    this.getSpecificUserOrdersSubscription.unsubscribe();
-  }
+  // /* Component Lifecycle Hooks */
+  // ngOnInit(): void {
+  //   /* Get decoded signin token */
+  //   this.signinDecodedToken = this.authenticationService.decodeSigninToken();
+  //   /* Get specific user orders on component initialization */
+  //   this.getSpecificUserOrdersData(this.signinDecodedToken?.id);
+  // }
+  // ngOnDestroy(): void {
+  //   /* Unsubscribe from getSpecificUserOrdersSubscription subscription on component destruction */
+  //   this.getSpecificUserOrdersSubscription.unsubscribe();
+  // }
 }

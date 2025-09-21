@@ -18,6 +18,9 @@ import { CheckoutComponent } from './features/checkout/checkout.component';
 import { ForgetPasswordComponent } from './core/auth/forget-password/forget-password.component';
 import { cartItemResolver } from './core/resolvers/CartItem/cart-item-resolver';
 import { wishlistItemsResolver } from './core/resolvers/WishlistItems/wishlist-items-resolver';
+import { categoriesListResolver } from './core/resolvers/CategoriesList/categories-list-resolver';
+import { brandsListResolver } from './core/resolvers/BrandsList/brands-list-resolver';
+import { ordersListResolver } from './core/resolvers/OrdersList/orders-list-resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -37,12 +40,14 @@ export const routes: Routes = [
         component: CategoriesComponent,
         title: 'Categories',
         canActivate: [authGuard],
+        resolve: { categoriesList: categoriesListResolver },
       },
       {
         path: 'brands',
         component: BrandsComponent,
         title: 'Brands',
         canActivate: [authGuard],
+        resolve: { brandsList: brandsListResolver },
       },
       {
         path: 'productdetails/:slug_name/:id',
@@ -81,6 +86,7 @@ export const routes: Routes = [
         component: OrdersComponent,
         title: 'All Orders',
         canActivate: [authGuard],
+        resolve: { ordersList: ordersListResolver },
       },
     ],
   },
