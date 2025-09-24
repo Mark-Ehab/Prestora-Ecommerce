@@ -1,3 +1,4 @@
+import { homeBrandsResolver } from './core/resolvers/HomeBrands/home-brands-resolver';
 import { Routes } from '@angular/router';
 import { LoginComponent } from './core/auth/login/login.component';
 import { SignupComponent } from './core/auth/signup/signup.component';
@@ -21,6 +22,10 @@ import { wishlistItemsResolver } from './core/resolvers/WishlistItems/wishlist-i
 import { categoriesListResolver } from './core/resolvers/CategoriesList/categories-list-resolver';
 import { brandsListResolver } from './core/resolvers/BrandsList/brands-list-resolver';
 import { ordersListResolver } from './core/resolvers/OrdersList/orders-list-resolver';
+import { homeWishlistResolver } from './core/resolvers/HomeWishlist/home-wishlist-resolver';
+import { homeProductsResolver } from './core/resolvers/HomeProducts/home-products-resolver';
+import { homeCategoriesResolver } from './core/resolvers/HomeCateogries/home-categories-resolver';
+import { productDetailsItemResolver } from './core/resolvers/ProductDetailsItem/product-details-item-resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,7 +33,17 @@ export const routes: Routes = [
     path: '',
     component: BlankComponent,
     children: [
-      { path: 'home', component: HomeComponent, title: 'Home' },
+      {
+        path: 'home',
+        component: HomeComponent,
+        title: 'Home',
+        resolve: {
+          homeWishlist: homeWishlistResolver,
+          homeProducts: homeProductsResolver,
+          homeBrands: homeBrandsResolver,
+          homeCategories: homeCategoriesResolver,
+        },
+      },
       {
         path: 'products',
         component: ProductsComponent,
@@ -53,13 +68,19 @@ export const routes: Routes = [
         path: 'productdetails/:slug_name/:id',
         component: ProductDetailsComponent,
         title: 'Product Details',
-        canActivate: [authGuard],
+        resolve: {
+          productDetailsItem: productDetailsItemResolver,
+          wishlistItemsData: wishlistItemsResolver,
+        },
       },
       {
         path: 'productdetails/:id',
         component: ProductDetailsComponent,
         title: 'Product Details',
-        canActivate: [authGuard],
+        resolve: {
+          productDetailsItem: productDetailsItemResolver,
+          wishlistItemsData: wishlistItemsResolver,
+        },
       },
       {
         path: 'wishlist',

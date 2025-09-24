@@ -26,4 +26,19 @@ export class ProductsService {
       `${environment.ecommerceBaseURl}/products?page=${pageNumber}`
     );
   }
+
+  /*-----------------------------------------------------------------------------
+  # Description: A function to get an obeservable<any> that holds the details data  
+  # of a specific product got from Route E-Commerce API on '/products' endpoint
+  #------------------------------------------------------------------------------
+  # @params:
+  # @Param(1): productId:string
+  #------------------------------------------------------------------------------
+  # return type: Observable<any>
+  -----------------------------------------------------------------------------*/
+  getSpecficProductDetails(productId: string | null): Observable<any> {
+    return this.httpClient.get(
+      `${environment.ecommerceBaseURl}/products/${productId}`
+    );
+  }
 }

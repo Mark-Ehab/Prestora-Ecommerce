@@ -31,5 +31,5 @@ export class ProductCardComponent {
   @Input({ required: true }) rate!: number;
   @Input({ required: true }) price!: number;
   @Input({ required: true }) priceAfterDiscount!: number;
-  @Input({ required: true }) wishlist!: Product[] | null;
+  // @Input({ required: true }) wishlist!: Product[] | null;
 }

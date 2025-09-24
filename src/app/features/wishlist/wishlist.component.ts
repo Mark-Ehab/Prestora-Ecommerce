@@ -19,21 +19,14 @@ export class WishlistComponent {
 
   /* Properties */
   updatedWishlist: Signal<Product[] | null> = computed(() => {
-    if (this.wishlistService.wishlist()?.length) {
-      this.wishListIsUpdated = true;
-    }
-    if (this.wishListIsUpdated) {
-      this.wishList = this.wishlistService.wishlist();
-    }
-
     return this.wishlistService.wishlist();
   });
-  wishList!: Product[] | null;
-  wishListIsUpdated: boolean = false;
 
   /* constructor */
   constructor() {
     /* Get Wishlist data from resolver */
-    this.wishList = this.activatedRoute.snapshot.data['wishlistItemsData'].data;
+    this.wishlistService.wishlist.set(
+      this.activatedRoute.snapshot.data['wishlistItemsData'].data
+    );
   }
 }

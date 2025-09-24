@@ -37,7 +37,7 @@
         </li>
       </ol>
     </nav>
-    @if (updatedWishlist()?.length || wishList?.length) {
+    @if (updatedWishlist()?.length) {
     <div class="border-[.1875rem] rounded-3xl border-main mt-7 mb-10">
       <div class="flex justify-center items-center">
         <h2 class="text-text-main text-[2.5rem] font-semibold">My Wishlist</h2>
@@ -46,7 +46,7 @@
     <div
       class="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
     >
-      @for (product of wishList ; track product.id) {
+      @for (product of updatedWishlist() ; track product.id) {
       <product-card
         [id]="product.id"
         [title]="product.title"
@@ -58,7 +58,6 @@
         [rate]="product.ratingsAverage"
         [price]="product.price"
         [priceAfterDiscount]="product.priceAfterDiscount"
-        [wishlist]="wishList"
       />
       }
     </div>

@@ -1,9 +1,7 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { BrandsService } from '../../../../core/services/brands/brands.service';
+import { Component, inject } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { Subscription } from 'rxjs';
 import { Brand } from '../../../../core/models/brand.interface';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'brands-slider',
@@ -11,14 +9,13 @@ import { RouterLink } from '@angular/router';
   templateUrl: './brands-slider.component.html',
   styleUrl: './brands-slider.component.scss',
 })
-export class BrandsSliderComponent implements OnInit, OnDestroy {
+export class BrandsSliderComponent {
   /* Dependency Injection */
-  /* Inject BrandsService through function injection */
-  private readonly brandsService = inject(BrandsService);
+  /* Inject ActivatedRoute Service through function injection */
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   /* Properties */
-  allBrands: Brand[] = [] as Brand[];
-  private allBrandsSubscription!: Subscription;
+  allBrands!: Brand[];
   brandsSliderOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -59,32 +56,8 @@ export class BrandsSliderComponent implements OnInit, OnDestroy {
     nav: true,
   };
 
-  /* Methods */
-  /*-----------------------------------------------------------------------------
-  # Description: A function to get the data of All Brands got from Route 
-  # E-Commerce API on '/brands' endpoint
-  #------------------------------------------------------------------------------
-  # @params:void
-  #------------------------------------------------------------------------------
-  # return type: void
-  -----------------------------------------------------------------------------*/
-  getAllBrandsData(): void {
-    this.allBrandsSubscription = this.brandsService.getAllBrands().subscribe({
-      next: (response) => {
-        this.allBrands = response.data;
-      },
-      error: (err) => console.log('%c Error:', 'color:red', ` ${err.message}`),
-    });
-  }
-
-  /* Component Lifecycle Hooks */
-  ngOnInit(): void {
-    /* Get All Brands data on component initialiation */
-    this.getAllBrandsData();
-  }
-
-  ngOnDestroy(): void {
-    /* Unsubscribe from allBrandsSubscription observable subscription on component destruction */
-    this.allBrandsSubscription.unsubscribe();
+  /* Constructor */
+  constructor() {
+    this.allBrands = this.activatedRoute.snapshot.data['homeBrands'].data;
   }
 }

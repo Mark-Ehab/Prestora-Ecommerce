@@ -21,7 +21,7 @@ export class WishlistBtnComponent implements OnInit {
 
   /* Properties */
   @Input({ required: true }) productId!: string;
-  @Input({ required: true }) wishlist!: Product[] | null;
+  // @Input({ required: true }) wishlist!: Product[] | null;
   updatedWishlist!: Product[];
   isProductAddedToWishlist: boolean = false;
   isAddToWishlistBtnHovered: boolean = false;
@@ -41,6 +41,7 @@ export class WishlistBtnComponent implements OnInit {
         this.updatedWishlist = response.data;
         /* Set updated wishlist */
         this.wishlistService.wishlist.set(this.updatedWishlist);
+        console.log(this.wishlistService.wishlist());
       },
       error: (err) => console.log('%c Error:', 'color:red', ` ${err.message}`),
     });
@@ -121,7 +122,11 @@ export class WishlistBtnComponent implements OnInit {
   -----------------------------------------------------------------------------*/
   checkProductWishlistPresense(productId: string) {
     /* Check if product is is existing on wishlist */
-    if (this.wishlist?.find((product) => product.id === productId)) {
+    if (
+      this.wishlistService
+        .wishlist()
+        ?.find((product) => product.id === productId)
+    ) {
       this.isProductAddedToWishlist = true;
     }
   }
@@ -153,7 +158,10 @@ export class WishlistBtnComponent implements OnInit {
 
   /* Component Lifecycle Hooks */
   ngOnInit(): void {
-    /* Check if product on which this btn exists is present in wishlist on component initialization */
-    this.checkProductWishlistPresense(this.productId as string);
+    /* Check if the user is logged in */
+    if (this.cookieService.check('signinToken')) {
+      /* Check if product on which this btn exists is present in wishlist on component initialization */
+      this.checkProductWishlistPresense(this.productId as string);
+    }
   }
 }

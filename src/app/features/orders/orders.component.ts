@@ -11,7 +11,6 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
 })
-//  implements OnInit, OnDestroy
 export class OrdersComponent {
   /* Dependency Injection */
   /* Inject OrdersService service through function injection */
