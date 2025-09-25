@@ -26,6 +26,7 @@ import { homeWishlistResolver } from './core/resolvers/HomeWishlist/home-wishlis
 import { homeProductsResolver } from './core/resolvers/HomeProducts/home-products-resolver';
 import { homeCategoriesResolver } from './core/resolvers/HomeCateogries/home-categories-resolver';
 import { productDetailsItemResolver } from './core/resolvers/ProductDetailsItem/product-details-item-resolver';
+import { productsListResolver } from './core/resolvers/ProductsList/products-list-resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -49,6 +50,10 @@ export const routes: Routes = [
         component: ProductsComponent,
         title: 'Products',
         canActivate: [authGuard],
+        resolve: {
+          productsList: productsListResolver,
+          wishlistItemsData: wishlistItemsResolver,
+        },
       },
       {
         path: 'categories',

@@ -1,9 +1,9 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
 import { Subscription } from 'rxjs';
 import { Product } from '../../core/models/product.interface';
 import { ProductsService } from '../../core/services/products/products.service';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { SearchPipe } from '../../shared/pipes/Search/search-pipe';
@@ -21,22 +21,37 @@ import { WishlistService } from '../../core/services/wishlist/wishlist.service';
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
-export class ProductsComponent implements OnInit, OnDestroy {
+export class ProductsComponent {
   /* Dependency Injection */
   /* Inject ProductsService through function injection */
   private readonly productsService = inject(ProductsService);
   /* Inject WishlistService service through function injection */
   private readonly wishlistService = inject(WishlistService);
+  /* Inject ActivatedRoute service through function injection */
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   /* Properties */
+  private allProductsSubscription: Subscription = new Subscription();
   allProducts: Product[] = [] as Product[];
-  wishlist: Product[] = [] as Product[];
-  private allProductsSubscription!: Subscription;
-  private loggedUserWishlistSubscription!: Subscription;
   itemsPerPage!: number;
   currentPage!: number;
   totalItems!: number;
   searchKeyword: string = '';
+
+  /* Constructor */
+  constructor() {
+    this.allProducts = this.shuffleList<Product>(
+      this.activatedRoute.snapshot.data['productsList'].data
+    );
+    this.itemsPerPage =
+      this.activatedRoute.snapshot.data['productsList'].metadata.limit;
+    this.currentPage =
+      this.activatedRoute.snapshot.data['productsList'].metadata.currentPage;
+    this.totalItems = this.activatedRoute.snapshot.data['productsList'].results;
+    this.wishlistService.wishlist.set(
+      this.activatedRoute.snapshot.data['wishlistItemsData'].data
+    );
+  }
 
   /* Methods */
   /*-----------------------------------------------------------------------------
@@ -49,6 +64,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   # return type: void
   -----------------------------------------------------------------------------*/
   getAllProductsData(pageNumber: number = 1): void {
+    /* Unsubscribe from allProductsSubscription subscription */
+    this.allProductsSubscription.unsubscribe();
     this.allProductsSubscription = this.productsService
       .getAllProducts(pageNumber)
       .subscribe({
@@ -57,27 +74,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
           this.itemsPerPage = response.metadata.limit;
           this.currentPage = response.metadata.currentPage;
           this.totalItems = response.results;
-        },
-        error: (err) =>
-          console.log('%c Error:', 'color:red', ` ${err.message}`),
-      });
-  }
-
-  /*-----------------------------------------------------------------------------
-  # Description: A function to get all the data of a logged user wishlist got from
-  # Route E-Commerce API on '/wishlist' endpoint
-  #------------------------------------------------------------------------------
-  # @params: void
-  #------------------------------------------------------------------------------
-  # return type: void
-  -----------------------------------------------------------------------------*/
-  getLoggedUserWishlist(): void {
-    this.loggedUserWishlistSubscription = this.wishlistService
-      .getLoggedUserWishlist()
-      .subscribe({
-        next: (response) => {
-          this.wishlist = response.data;
-          this.getAllProductsData();
         },
         error: (err) =>
           console.log('%c Error:', 'color:red', ` ${err.message}`),
@@ -102,18 +98,5 @@ export class ProductsComponent implements OnInit, OnDestroy {
       list[counter] = temp;
     }
     return list;
-  }
-
-  /* Component Lifecycle Hooks */
-  ngOnInit(): void {
-    /* Get All Products existing on wishlist on component initialiation */
-    this.getLoggedUserWishlist();
-  }
-
-  ngOnDestroy(): void {
-    /* Unsubscribe from allProductsSubscription on component destruction */
-    this.allProductsSubscription.unsubscribe();
-    /* Unsubscribe from loggedUserWishlistSubscription on component destruction */
-    this.loggedUserWishlistSubscription.unsubscribe();
   }
 }

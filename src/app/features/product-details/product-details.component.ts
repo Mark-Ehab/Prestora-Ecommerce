@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Product } from '../../core/models/product.interface';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
