@@ -6,6 +6,6 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'checkout/:id', renderMode: RenderMode.Server },
   {
     path: '**',
-    renderMode: RenderMode.Prerender,
+    renderMode: RenderMode.Server,
   },
 ];

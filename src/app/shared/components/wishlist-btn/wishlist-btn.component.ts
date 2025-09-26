@@ -21,32 +21,11 @@ export class WishlistBtnComponent implements OnInit {
 
   /* Properties */
   @Input({ required: true }) productId!: string;
-  // @Input({ required: true }) wishlist!: Product[] | null;
   updatedWishlist!: Product[];
   isProductAddedToWishlist: boolean = false;
   isAddToWishlistBtnHovered: boolean = false;
 
   /* Methods */
-  /*-----------------------------------------------------------------------------
-  # Description: A function to get all the data of a logged user wishlist got from
-  # Route E-Commerce API on '/wishlist' endpoint
-  #------------------------------------------------------------------------------
-  # @params: void
-  #------------------------------------------------------------------------------
-  # return type: void
-  -----------------------------------------------------------------------------*/
-  getLoggedUserWishlist(): void {
-    this.wishlistService.getLoggedUserWishlist().subscribe({
-      next: (response) => {
-        this.updatedWishlist = response.data;
-        /* Set updated wishlist */
-        this.wishlistService.wishlist.set(this.updatedWishlist);
-        console.log(this.wishlistService.wishlist());
-      },
-      error: (err) => console.log('%c Error:', 'color:red', ` ${err.message}`),
-    });
-  }
-
   /*-----------------------------------------------------------------------------
   # Description: A function to toggle the state of fav button icon on click to 
   # either add or remove a specific icon to wishlist
@@ -95,8 +74,8 @@ export class WishlistBtnComponent implements OnInit {
                   'Prestora'
                 );
               }
-              /* Get wishlist */
-              this.getLoggedUserWishlist();
+              /* Remove this product from current wishlist */
+              this.removeProductFromWishlist(productId as string);
             },
             error: (err) => console.log('%c Error: ', 'color:red', err.message),
           });
@@ -129,6 +108,23 @@ export class WishlistBtnComponent implements OnInit {
     ) {
       this.isProductAddedToWishlist = true;
     }
+  }
+
+  /*-----------------------------------------------------------------------------
+  # Description: A function to remove product from wishlist array after being
+  # removed from DB
+  #------------------------------------------------------------------------------
+  # @params: productId: string
+  #------------------------------------------------------------------------------
+  # return type: void
+  -----------------------------------------------------------------------------*/
+  removeProductFromWishlist(productId: string) {
+    this.wishlistService.wishlist()?.splice(
+      this.wishlistService.wishlist()?.findIndex((product) => {
+        return product.id === this.productId;
+      }) as number,
+      1
+    );
   }
 
   /* Event Handlers */
