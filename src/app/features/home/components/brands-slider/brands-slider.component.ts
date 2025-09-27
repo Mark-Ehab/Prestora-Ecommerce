@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { Brand } from '../../../../core/models/brand.interface';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   imports: [CarouselModule, RouterLink],
   templateUrl: './brands-slider.component.html',
   styleUrl: './brands-slider.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class BrandsSliderComponent {
   /* Dependency Injection */

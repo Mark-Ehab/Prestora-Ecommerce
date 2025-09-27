@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { Category } from '../../../../core/models/category.interface';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -7,6 +7,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   imports: [CarouselModule, RouterLink],
   templateUrl: './categories-slider.component.html',
   styleUrl: './categories-slider.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class CategoriesSliderComponent {
   /* Dependency Injection */

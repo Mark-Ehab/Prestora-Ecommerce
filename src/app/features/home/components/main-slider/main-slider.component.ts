@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -6,6 +6,7 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
   imports: [CarouselModule],
   templateUrl: './main-slider.component.html',
   styleUrl: './main-slider.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class MainSliderComponent {
   /* Properties */

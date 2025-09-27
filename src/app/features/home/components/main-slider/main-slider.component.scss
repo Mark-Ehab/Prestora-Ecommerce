@@ -1,0 +1,18 @@
+main-slider {
+  .owl-theme .owl-dots .owl-dot.active span{
+    background-color: #8B5E35;
+  }
+
+  .owl-theme .owl-dots .owl-dot span{
+    width:1.25rem;
+    height:.3125rem;
+  }
+
+  .owl-theme .owl-nav.disabled + .owl-dots {
+      margin-top: 0;
+      position: absolute;
+      left:0;
+      right: 0;
+      bottom: 0;
+  }
+}

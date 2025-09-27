@@ -1,0 +1,33 @@
+categories-slider{
+    .owl-theme .owl-nav [class*=owl-] {
+        color: #8B5E35;;
+        font-size: .875rem;
+        margin: .3125rem;
+        padding: .9375rem .9375rem;
+        background-color: white;
+        border-color: #8B5E35;
+        border-width: 1px;
+        display: inline-block;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: 0.3s background-color ;
+    }
+
+    .owl-theme .owl-nav [class*=owl-]:hover {
+        background-color: #8B5E35;
+    }
+
+    .owl-theme .owl-nav {
+        display: flex;
+        position: absolute;
+        left: -4.5%;
+        right: -4.5%;
+        top: 16%;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0;
+        text-align: center;
+        -webkit-tap-highlight-color: transparent;
+        z-index: -1;
+    }
+}
