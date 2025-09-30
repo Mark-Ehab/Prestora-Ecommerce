@@ -8,17 +8,17 @@
         <p class="text-text-2nd mb-6">
           Join our newsletter to stay up to date on features and releases.
         </p>
-        <div class="flex items-center gap-2 sm:gap-4 mb-2 w-full">
+        <div class="grid grid-cols-12 gap-2 sm:gap-4 mb-2 w-full">
           <label for="email" class="hidden"></label>
           <input
             type="mail"
             id="email"
             name="email"
             placeholder="Enter your email"
-            class="p-3 border border-main focus:outline-none focus:ring-2 focus:ring-main rounded-[.625rem] bg-white placeholder:bg-white placeholder:text-[1rem] placeholder:text-text-2nd grow-1"
+            class="p-3 border border-main focus:outline-none focus:ring-2 focus:ring-main rounded-[.625rem] bg-white placeholder:bg-white placeholder:text-[1rem] placeholder:text-text-2nd col-span-9 lg:col-span-8"
           />
           <button
-            class="cursor-pointer py-3 px-2 bg-2nd text-white border border-bg-main rounded-[.625rem] hover:bg-main transition-colors duration-500 text-sm sm:px-6 sm:text-[1rem]"
+            class="cursor-pointer py-3 px-1 bg-2nd text-white border border-bg-main rounded-[.625rem] hover:bg-main transition-colors duration-500 text-[.75rem] sm:px-4 sm:text-[1rem] col-span-3 lg:col-span-4"
           >
             Subscribe
           </button>
@@ -30,27 +30,51 @@
       </div>
       <div class="grid grid-cols-12 gap-y-5 sm:gap-5 col-span-12 lg:col-span-6">
         <div class="col-span-6 md:col-span-4 lg:col-span-3 text-white">
-          <h3 class="font-bold mb-4">About Us</h3>
+          <h3 class="font-bold mb-4 text-sm sm:text-[1rem]">About Us</h3>
           <ul class="space-y-3">
-            <li><span class="font-normal">FAQ</span></li>
-            <li><span class="font-normal">Contacts</span></li>
-            <li><span class="font-normal">Returns</span></li>
-            <li><span class="font-normal">Blog</span></li>
-            <li><span class="font-normal">Shipping</span></li>
+            <li><span class="font-normal text-sm sm:text-[1rem]">FAQ</span></li>
+            <li>
+              <span class="font-normal text-sm sm:text-[1rem]">Contacts</span>
+            </li>
+            <li>
+              <span class="font-normal text-sm sm:text-[1rem]">Returns</span>
+            </li>
+            <li>
+              <span class="font-normal text-sm sm:text-[1rem]">Blog</span>
+            </li>
+            <li>
+              <span class="font-normal text-sm sm:text-[1rem]">Shipping</span>
+            </li>
           </ul>
         </div>
         <div class="col-span-6 md:col-span-4 lg:col-span-5 text-white">
-          <h3 class="font-bold mb-4">Customer Support</h3>
+          <h3 class="font-bold mb-4 text-sm sm:text-[1rem]">
+            Customer Support
+          </h3>
           <ul class="space-y-3">
-            <li><span class="font-normal">Affiliates</span></li>
-            <li><span class="font-normal">Apple Pay Payments</span></li>
-            <li><span class="font-normal">Returns</span></li>
-            <li><span class="font-normal">Returns Policy</span></li>
-            <li><span class="font-normal">Returns</span></li>
+            <li>
+              <span class="font-normal text-sm sm:text-[1rem]">Affiliates</span>
+            </li>
+            <li>
+              <span class="font-normal text-sm sm:text-[1rem]"
+                >Apple Pay Payments</span
+              >
+            </li>
+            <li>
+              <span class="font-normal text-sm sm:text-[1rem]">Returns</span>
+            </li>
+            <li>
+              <span class="font-normal text-sm sm:text-[1rem]"
+                >Returns Policy</span
+              >
+            </li>
+            <li>
+              <span class="font-normal text-sm sm:text-[1rem]">Returns</span>
+            </li>
           </ul>
         </div>
         <div class="col-span-6 md:col-span-4 lg:col-span-4 text-white">
-          <h3 class="font-bold mb-4">Follow Us</h3>
+          <h3 class="font-bold mb-4 text-sm sm:text-[1rem]">Follow Us</h3>
           <ul class="space-y-3">
             <li>
               <a
@@ -59,7 +83,7 @@
                 class="hover:text-main"
               >
                 <i class="fab fa-facebook-f"></i
-                ><span class="font-normal text-[.875rem]"
+                ><span class="font-normal text-[.75rem] sm:text-sm"
                   >&nbsp;&nbsp;&nbsp;Facebook</span
                 ></a
               >
@@ -70,7 +94,7 @@
                 href="https://www.instagram.com"
                 class="hover:text-main"
                 ><i class="fab fa-instagram"></i
-                ><span class="font-normal text-[.875rem]"
+                ><span class="font-normal text-[.75rem] sm:text-sm"
                   >&nbsp;&nbsp;&nbsp;Instagram</span
                 ></a
               >
@@ -81,7 +105,7 @@
                 href="https://www.twitter.com"
                 class="hover:text-main"
                 ><i class="fab fa-twitter"></i
-                ><span class="font-normal text-[.875rem]"
+                ><span class="font-normal text-[.75rem] sm:text-sm"
                   >&nbsp;&nbsp;&nbsp;Twitter</span
                 ></a
               >
@@ -92,7 +116,7 @@
                 href="https://www.linkedin.com"
                 class="hover:text-main"
                 ><i class="fab fa-linkedin"></i
-                ><span class="font-normal text-[.875rem]"
+                ><span class="font-normal text-[.75rem] sm:text-sm"
                   >&nbsp;&nbsp;&nbsp;LinkedIn</span
                 ></a
               >

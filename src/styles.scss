@@ -30,7 +30,7 @@
 
 @utility custom-container {
   width: 100%;
-  @apply mx-auto max-w-full md:px-[calc(1.5rem*0.5)] sm:max-w-[33.75rem] md:max-w-[45rem] lg:max-w-[60rem] xl:max-w-[71.25rem]
+  @apply mx-auto max-w-full px-[calc(1.5rem*0.5)] sm:max-w-[33.75rem] md:max-w-[45rem] lg:max-w-[60rem] xl:max-w-[71.25rem]
 }
 
 @layer component {
