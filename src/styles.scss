@@ -88,7 +88,7 @@
 
   .home-section-heading
   {
-    @apply text-text-2nd text-[1rem] sm:text-lg md:text-2xl w-fit after:w-full after:h-[.1563rem] after:bg-main after:absolute after:left-0 after:top-[121.5%] relative 
+    @apply pb-1 text-text-2nd text-[.75rem] sm:text-lg md:text-2xl w-fit after:w-full after:h-[.1563rem] after:bg-main after:absolute after:left-0 after:-bottom-[.0938rem] relative 
   }
 
   .form-input{

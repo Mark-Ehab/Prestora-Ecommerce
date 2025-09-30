@@ -20,14 +20,21 @@ categories-slider{
     .owl-theme .owl-nav {
         display: flex;
         position: absolute;
-        left: -4.5%;
-        right: -4.5%;
+        left: -2.5%;
+        right: -2.5%;
         top: 16%;
         justify-content: space-between;
         align-items: center;
         margin-top: 0;
         text-align: center;
         -webkit-tap-highlight-color: transparent;
-        z-index: -1;
+        z-index: 444;
+    }
+
+        @media screen and (min-width:768px){
+            .owl-theme .owl-nav {
+            left: -4.5%;
+            right: -4.5%;
+        }
     }
 }
