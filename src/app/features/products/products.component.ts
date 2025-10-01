@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
 import { Subscription } from 'rxjs';
 import { Product } from '../../core/models/product.interface';
@@ -20,6 +20,7 @@ import { WishlistService } from '../../core/services/wishlist/wishlist.service';
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProductsComponent {
   /* Dependency Injection */

@@ -16,11 +16,13 @@ export class BrandsService {
   # Description: A function to get an obeservable<any> that holds the data of 
   # All Brands got from Route E-Commerce API on '/brands' endpoint
   #------------------------------------------------------------------------------
-  # @params:void
+  # @params:pageNumber:number
   #------------------------------------------------------------------------------
   # return type: Observable<any>
   -----------------------------------------------------------------------------*/
-  getAllBrands(): Observable<any> {
-    return this.httpClient.get(`${environment.ecommerceBaseURl}/brands`);
+  getAllBrands(pageNumber: number = 1): Observable<any> {
+    return this.httpClient.get(
+      `${environment.ecommerceBaseURl}/brands?page=${pageNumber}`
+    );
   }
 }
