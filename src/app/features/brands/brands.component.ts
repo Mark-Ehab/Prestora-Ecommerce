@@ -26,11 +26,21 @@ export class BrandsComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
 
   /* Properties */
-  allBrands: Brand[] = this.activatedRoute.snapshot.data['brandsList'].data;
-  allBrandsSubscription: Subscription = new Subscription();
+  allBrands!: Brand[];
+  private allBrandsSubscription: Subscription = new Subscription();
   itemsPerPage!: number;
   currentPage!: number;
   totalItems!: number;
+
+  /* Constructor */
+  constructor() {
+    this.allBrands = this.activatedRoute.snapshot.data['brandsList'].data;
+    this.itemsPerPage =
+      this.activatedRoute.snapshot.data['brandsList'].metadata.limit;
+    this.currentPage =
+      this.activatedRoute.snapshot.data['brandsList'].metadata.currentPage;
+    this.totalItems = this.activatedRoute.snapshot.data['brandsList'].results;
+  }
 
   /* Methods */
   /*-----------------------------------------------------------------------------

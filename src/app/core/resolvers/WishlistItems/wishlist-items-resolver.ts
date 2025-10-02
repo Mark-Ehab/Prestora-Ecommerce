@@ -17,7 +17,6 @@ export const wishlistItemsResolver: ResolveFn<any> = (route, state) => {
   if (isPlatformBrowser(platformId)) {
     /* Check if the user is logged in */
     if (cookieService.get('signinToken')) {
-      console.log(wishlistService.wishlist());
       return wishlistService.getLoggedUserWishlist();
     } else {
       return true;

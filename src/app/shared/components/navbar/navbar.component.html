@@ -111,11 +111,48 @@
             </div>
           </li>
           <li>
-            <i
-              id="dropdownDividerButton"
-              data-dropdown-toggle="dropdownDivider"
-              class="fas fa-user fa-xl hover:text-main cursor-pointer"
-            ></i>
+            <button (click)="isHidden = !isHidden">
+              <i class="fas fa-user fa-xl hover:text-main cursor-pointer"></i>
+            </button>
+            @if (isLoggedIn && !isHidden) {
+            <!-- Dropdown menu -->
+            <div (click)="isHidden = !isHidden" class="relative">
+              <div
+                class="z-30 bg-bg-main divide-y divide-gray-800 rounded-lg shadow-sm w-44 translate-y-[18%] absolute translate-x-[-50%]"
+              >
+                <div class="px-2 py-2">
+                  <i class="fas fa-user-circle text-main"></i>
+                  {{ signinDecodedToken?.name?.split(" ", 1)?.join() }}
+                </div>
+                <ul
+                  class="py-2 text-sm text-gray-700"
+                  aria-labelledby="dropdownDividerButton"
+                >
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100"
+                      >Profile</a
+                    >
+                  </li>
+
+                  <li>
+                    <a
+                      routerLink="allorders"
+                      class="block px-4 py-2 hover:bg-gray-100"
+                      >My Orders</a
+                    >
+                  </li>
+                </ul>
+                <div class="py-2">
+                  <a
+                    class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 cursor-pointer"
+                    (click)="signOut()"
+                  >
+                    Sign Out
+                  </a>
+                </div>
+              </div>
+            </div>
+            }
           </li>
         </ul>
       </div>
@@ -145,38 +182,3 @@
     </div>
   </div>
 </nav>
-
-<!-- Dropdown menu -->
-<div [class]="{ hidden: isLoggedIn === false, block: isLoggedIn === true }">
-  <div
-    id="dropdownDivider"
-    class="z-30 hidden bg-bg-main divide-y divide-gray-800 rounded-lg shadow-sm w-44 translate-y-[18%]"
-  >
-    <div class="px-2 py-2">
-      <i class="fas fa-user-circle text-main"></i>
-      {{ signinDecodedToken?.name?.split(" ", 1)?.join() }}
-    </div>
-    <ul
-      class="py-2 text-sm text-gray-700"
-      aria-labelledby="dropdownDividerButton"
-    >
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-      </li>
-
-      <li>
-        <a routerLink="allorders" class="block px-4 py-2 hover:bg-gray-100"
-          >My Orders</a
-        >
-      </li>
-    </ul>
-    <div class="py-2">
-      <a
-        class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 cursor-pointer"
-        (click)="signOut()"
-      >
-        Sign Out
-      </a>
-    </div>
-  </div>
-</div>

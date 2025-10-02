@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
 
   /* Properties */
   isLoggedIn: boolean = false;
+  isHidden: boolean = true;
   signinDecodedToken: DecodedSigninToken | undefined = {} as DecodedSigninToken;
   cartProductsCount: Signal<Number> = computed(() =>
     this.cartService.cartItemsCount()
