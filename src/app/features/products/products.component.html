@@ -172,15 +172,15 @@
             </h2>
           </div>
         </div>
-        <div class="flex gap-5 mb-10 justify-center">
+        <div class="grid grid-cols-12 gap-2 md:gap-5 mb-10 justify-center">
           <input
             type="text"
             placeholder="Search for products..."
             [(ngModel)]="searchKeyword"
-            class="p-3 border border-main focus:outline-none focus:ring-2 focus:ring-main rounded-[.625rem] bg-white placeholder:bg-white placeholder:text-[1rem] placeholder:text-text-2nd sm:w-3/4 block"
+            class="p-3 border border-main focus:outline-none focus:ring-2 focus:ring-main rounded-[.625rem] bg-white placeholder:bg-white placeholder:text-[1rem] placeholder:text-text-2nd col-span-10 sm:col-span-9 md:col-span-12 md:w-3/4 md:mx-auto block"
           />
           <button
-            class="filter-btn md:hidden"
+            class="filter-btn col-span-2 sm:col-span-3 md:hidden"
             type="button"
             data-drawer-target="drawer-example"
             data-drawer-show="drawer-example"

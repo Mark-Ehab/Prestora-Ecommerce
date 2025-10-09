@@ -81,7 +81,7 @@
 
   .filter-btn
   {
-    @apply bg-main rounded-md text-white px-6 py-2 text-sm hover:bg-2nd cursor-pointer disabled:bg-2nd
+    @apply bg-main rounded-md text-white px-1 py-0.5 md:px-6 md:py-2  text-sm hover:bg-2nd cursor-pointer disabled:bg-2nd
   }
 
   .pagenotfound-btn
