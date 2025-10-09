@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { OrdersService } from '../../core/services/orders/orders.service';
 import { Order } from './models/order.interface';
 import { TermPipe } from '../../shared/pipes/Term/term-pipe';

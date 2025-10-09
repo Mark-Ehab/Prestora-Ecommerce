@@ -1,80 +1,233 @@
 <section id="products" class="pt-5 pb-10 bg-bg-main">
   <div class="custom-container">
-    <nav class="flex" aria-label="Breadcrumb">
-      <ol
-        class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+    <div class="grid grid-cols-12 md:gap-8 relative">
+      <!-- drawer component -->
+      <aside
+        id="drawer-example"
+        class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-bg-main w-70"
+        tabindex="-1"
+        aria-labelledby="drawer-label"
       >
-        <li class="inline-flex items-center">
-          <a
-            routerLink="/home"
-            class="inline-flex items-center text-sm font-medium text-main hover:text-main cursor-pointer"
+        <h3
+          id="drawer-label"
+          class="text-[1rem] lg:text-lg font-bold text-text-main mb-2"
+        >
+          Filter By
+        </h3>
+        <button
+          type="button"
+          data-drawer-hide="drawer-example"
+          aria-controls="drawer-example"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
           >
-            Home
-          </a>
-        </li>
-        <li aria-current="page">
-          <div class="flex items-center">
-            <svg
-              class="rtl:rotate-180 w-2 h-2 text-gray-400 mx-1 font-light"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 9 4-4-4-4"
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+          <span class="sr-only">Close menu</span>
+        </button>
+        <div>
+          <span class="block text-sm lg:text-[1rem] font-bold text-main mb-2"
+            >Category :</span
+          >
+          <ul>
+            @for (category of allCategories; track category._id) {
+            <li>
+              <input
+                type="checkbox"
+                class="me-2 rounded-[.375rem] cursor-pointer"
+                [id]="category.name"
+                [value]="category.name"
+                (change)="onCategoryCheckboxChange($event, category.name)"
               />
-            </svg>
-            <span
-              class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"
-              >Products</span
-            >
+              <label [for]="category.name" class="text-[.75rem] xl:text-sm">{{
+                category.name
+              }}</label>
+            </li>
+            }
+          </ul>
+        </div>
+        <div class="mt-4">
+          <span class="block text-sm lg:text-[1rem] font-bold text-main mb-2"
+            >Brand :</span
+          >
+          <ul>
+            @for (brand of allBrands; track brand._id) {
+            <li>
+              <input
+                type="checkbox"
+                class="me-2 rounded-[.375rem] cursor-pointer"
+                [id]="brand.name"
+                [value]="brand.name"
+                (change)="onBrandCheckboxChange($event, brand.name)"
+              />
+              <label [for]="brand.name" class="text-[.75rem] xl:text-sm">{{
+                brand.name
+              }}</label>
+            </li>
+            }
+          </ul>
+        </div>
+      </aside>
+      <aside class="hidden md:col-span-3 lg:col-span-2 md:block">
+        <h3 class="text-[1rem] lg:text-lg font-bold text-text-main mb-2">
+          Filter By
+        </h3>
+        <div>
+          <span class="block text-sm lg:text-[1rem] font-bold text-main mb-2"
+            >Category :</span
+          >
+          <ul>
+            @for (category of allCategories; track category._id) {
+            <li>
+              <input
+                type="checkbox"
+                class="me-2 rounded-[.375rem] cursor-pointer"
+                [id]="category.name"
+                [value]="category.name"
+                (change)="onCategoryCheckboxChange($event, category.name)"
+              />
+              <label [for]="category.name" class="text-[.75rem] xl:text-sm">{{
+                category.name
+              }}</label>
+            </li>
+            }
+          </ul>
+        </div>
+        <div class="mt-4">
+          <span class="block text-sm lg:text-[1rem] font-bold text-main mb-2"
+            >Brand :</span
+          >
+          <ul>
+            @for (brand of allBrands; track brand._id) {
+            <li>
+              <input
+                type="checkbox"
+                class="me-2 rounded-[.375rem] cursor-pointer"
+                [id]="brand.name"
+                [value]="brand.name"
+                (change)="onBrandCheckboxChange($event, brand.name)"
+              />
+              <label [for]="brand.name" class="text-[.75rem] xl:text-sm">{{
+                brand.name
+              }}</label>
+            </li>
+            }
+          </ul>
+        </div>
+      </aside>
+      <div class="col-span-12 md:col-span-9 lg:col-span-10">
+        <nav class="flex" aria-label="Breadcrumb">
+          <ol
+            class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+          >
+            <li class="inline-flex items-center">
+              <a
+                routerLink="/home"
+                class="inline-flex items-center text-sm font-medium text-main hover:text-main cursor-pointer"
+              >
+                Home
+              </a>
+            </li>
+            <li aria-current="page">
+              <div class="flex items-center">
+                <svg
+                  class="rtl:rotate-180 w-2 h-2 text-gray-400 mx-1 font-light"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 9 4-4-4-4"
+                  />
+                </svg>
+                <span
+                  class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"
+                  >Products</span
+                >
+              </div>
+            </li>
+          </ol>
+        </nav>
+        <div class="border-[.1875rem] rounded-3xl border-main mt-7 mb-10">
+          <div class="flex justify-center items-center">
+            <h2 class="text-text-main text-[2.5rem] font-semibold">
+              All Products
+            </h2>
           </div>
-        </li>
-      </ol>
-    </nav>
-    <div class="border-[.1875rem] rounded-3xl border-main mt-7 mb-10">
-      <div class="flex justify-center items-center">
-        <h2 class="text-text-main text-[2.5rem] font-semibold">All Products</h2>
+        </div>
+        <div class="flex gap-5 mb-10 justify-center">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            [(ngModel)]="searchKeyword"
+            class="p-3 border border-main focus:outline-none focus:ring-2 focus:ring-main rounded-[.625rem] bg-white placeholder:bg-white placeholder:text-[1rem] placeholder:text-text-2nd sm:w-3/4 block"
+          />
+          <button
+            class="filter-btn md:hidden"
+            type="button"
+            data-drawer-target="drawer-example"
+            data-drawer-show="drawer-example"
+            aria-controls="drawer-example"
+          >
+            <span class="hidden sm:inline">Filter </span>
+            <i class="fas fa-filter"></i>
+          </button>
+        </div>
+        @if(brandsMatch() && categoriesMatch()){
+        <div
+          class="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        >
+          @for (product of allProducts | paginate: { id: 'products-pagination',
+          itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems:
+          totalItems } | cateogriesFilter: filteredCategories | brandsFilter:
+          filteredBrands | search: searchKeyword ; track product.id ) {
+          <product-card
+            [id]="product.id"
+            [title]="product.title"
+            [slug]="product.slug"
+            [imgSrc]="product.imageCover"
+            [brandImgSrc]="product.brand.image"
+            [brandName]="product.brand.name"
+            [quantity]="product.quantity"
+            [rate]="product.ratingsAverage"
+            [price]="product.price"
+            [priceAfterDiscount]="product.priceAfterDiscount"
+          />
+          }
+        </div>
+        <div class="flex justify-center items-center mt-10 w-full">
+          <pagination-controls
+            id="products-pagination"
+            class="my-pagination"
+            (pageChange)="getAllProductsData($event)"
+          >
+          </pagination-controls>
+        </div>
+        } @else {
+        <div
+          class="rounded-2xl bg-main text-white text-center w-3/4 p-10 mx-auto"
+        >
+          <p class="text-3xl">No Match</p>
+        </div>
+        }
       </div>
-    </div>
-    <input
-      type="text"
-      placeholder="Search for products..."
-      [(ngModel)]="searchKeyword"
-      class="p-3 border border-main focus:outline-none focus:ring-2 focus:ring-main rounded-[.625rem] bg-white placeholder:bg-white placeholder:text-[1rem] placeholder:text-text-2nd mb-10 w-3/4 mx-auto block"
-    />
-    <div
-      class="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-    >
-      @for (product of allProducts | paginate: { id: 'products-pagination',
-      itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems:
-      totalItems } | search: searchKeyword; track product.id) {
-      <product-card
-        [id]="product.id"
-        [title]="product.title"
-        [slug]="product.slug"
-        [imgSrc]="product.imageCover"
-        [brandImgSrc]="product.brand.image"
-        [brandName]="product.brand.name"
-        [quantity]="product.quantity"
-        [rate]="product.ratingsAverage"
-        [price]="product.price"
-        [priceAfterDiscount]="product.priceAfterDiscount"
-      />
-      }
-    </div>
-    <div class="flex justify-center items-center mt-10 w-full">
-      <pagination-controls
-        id="products-pagination"
-        class="my-pagination"
-        (pageChange)="getAllProductsData($event)"
-      >
-      </pagination-controls>
     </div>
   </div>
 </section>

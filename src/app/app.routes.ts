@@ -27,6 +27,7 @@ import { homeProductsResolver } from './core/resolvers/HomeProducts/home-product
 import { homeCategoriesResolver } from './core/resolvers/HomeCateogries/home-categories-resolver';
 import { productDetailsItemResolver } from './core/resolvers/ProductDetailsItem/product-details-item-resolver';
 import { productsListResolver } from './core/resolvers/ProductsList/products-list-resolver';
+import { allBrandsListResolver } from './core/resolvers/AllBrandsList/all-brands-list-resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -53,6 +54,8 @@ export const routes: Routes = [
         resolve: {
           productsList: productsListResolver,
           wishlistItemsData: wishlistItemsResolver,
+          categoriesList: categoriesListResolver,
+          allBrandsList: allBrandsListResolver,
         },
       },
       {

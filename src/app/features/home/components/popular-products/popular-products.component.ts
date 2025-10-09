@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Product } from '../../../../core/models/product.interface';
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -11,7 +11,7 @@ import { WishlistService } from '../../../../core/services/wishlist/wishlist.ser
   templateUrl: './popular-products.component.html',
   styleUrl: './popular-products.component.scss',
 })
-export class PopularProductsComponent implements OnInit {
+export class PopularProductsComponent {
   /* Dependency Injection */
   /* Inject WishlistService service through function injection */
   private readonly wishlistService = inject(WishlistService);
@@ -41,16 +41,6 @@ export class PopularProductsComponent implements OnInit {
       list[counter] = temp;
     }
     return list;
-  }
-
-  /* Component Lifecycle Hooks */
-  ngOnInit(): void {
-    // this.wishlistService.wishlist.set(
-    //   this.activatedRoute.snapshot.data['homeWishlist'].data
-    // );
-    // this.allProducts = this.shuffleList<Product>(
-    //   this.activatedRoute.snapshot.data['homeProducts'].data
-    // );
   }
 
   /* Constructor */

@@ -79,6 +79,11 @@
     @apply w-fit bg-main rounded-md text-white px-6 py-2 text-lg hover:bg-2nd cursor-pointer disabled:bg-2nd
   }
 
+  .filter-btn
+  {
+    @apply bg-main rounded-md text-white px-6 py-2 text-sm hover:bg-2nd cursor-pointer disabled:bg-2nd
+  }
+
   .pagenotfound-btn
   {
     @apply mb-6 bg-main rounded-lg font-medium text-white p-2 text-[1rem] hover:bg-2nd/50 cursor-pointer disabled:bg-2nd

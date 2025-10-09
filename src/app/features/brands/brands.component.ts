@@ -1,10 +1,4 @@
-import {
-  Component,
-  inject,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BrandsService } from '../../core/services/brands/brands.service';
 import { Brand } from '../../core/models/brand.interface';

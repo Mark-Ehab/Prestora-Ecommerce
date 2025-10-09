@@ -26,8 +26,8 @@ export class NavbarComponent implements OnInit {
   private readonly cartService = inject(CartService);
   /* Inject WishlistService service through function injection */
   private readonly wishlistService = inject(WishlistService);
-  /* Inject FlowbiteService service through constructor injection */
-  constructor(private flowbiteService: FlowbiteService) {}
+  /* Inject FlowbiteService service through function injection */
+  private readonly flowbiteService = inject(FlowbiteService);
 
   /* Properties */
   isLoggedIn: boolean = false;

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CartService } from './services/cart/cart.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';

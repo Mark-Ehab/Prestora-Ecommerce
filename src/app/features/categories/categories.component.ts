@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CategoriesService } from '../../core/services/categories/categories.service';
 import { Category } from '../../core/models/category.interface';

@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
@@ -10,6 +10,9 @@ export class CategoriesService {
   /* Dependency Injection */
   /* Inject HttpClient service through function injection */
   private readonly httpClient = inject(HttpClient);
+
+  /* Properties */
+  CategoriesFilterMatch: WritableSignal<boolean> = signal(true);
 
   /* Methods */
   /*-----------------------------------------------------------------------------
