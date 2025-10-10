@@ -1,8 +1,10 @@
 import {
   Component,
   computed,
+  ElementRef,
   inject,
   OnInit,
+  Renderer2,
   Signal,
   ViewEncapsulation,
 } from '@angular/core';
@@ -53,6 +55,10 @@ export class ProductsComponent implements OnInit {
   private readonly flowbiteService = inject(FlowbiteService);
   /* Inject ActivatedRoute service through function injection */
   private readonly activatedRoute = inject(ActivatedRoute);
+  /* Inject Renderer2 service through function injection */
+  private readonly renderer = inject(Renderer2);
+  /* Inject ElementRef through function injection */
+  private readonly el = inject(ElementRef);
 
   /* Properties */
   private allProductsSubscription: Subscription = new Subscription();
@@ -224,5 +230,46 @@ export class ProductsComponent implements OnInit {
     this.flowbiteService.loadFlowbite((flowbite) => {
       initFlowbite();
     });
+  }
+  ngAfterViewInit() {
+    const footer = document.querySelector('footer');
+    const sidebar = this.el.nativeElement.querySelector(
+      'aside.large-screen-slider'
+    );
+    const productsLayout = this.el.nativeElement.querySelector(
+      'div.products-layout'
+    );
+    console.log(footer);
+    console.log(sidebar);
+    console.log(productsLayout);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Footer visible → stop fixed
+          this.renderer.removeClass(sidebar, 'fixed');
+          this.renderer.removeClass(sidebar, 'z-40');
+          this.renderer.addClass(sidebar, 'absolute');
+          this.renderer.setStyle(sidebar, 'bottom', '0');
+          this.renderer.removeClass(productsLayout, 'md:fixed');
+          this.renderer.removeClass(productsLayout, 'md:z-40');
+          this.renderer.addClass(productsLayout, 'md:absolute');
+          this.renderer.setStyle(productsLayout, 'md:bottom', '0');
+        } else {
+          // Footer hidden → make it fixed again
+          this.renderer.removeClass(sidebar, 'absolute');
+          this.renderer.addClass(sidebar, 'fixed');
+          this.renderer.addClass(sidebar, 'z-40');
+          this.renderer.removeStyle(sidebar, 'bottom');
+          this.renderer.removeClass(productsLayout, 'md:absolute');
+          this.renderer.addClass(productsLayout, 'md:fixed');
+          this.renderer.addClass(productsLayout, 'md:z-40');
+          this.renderer.removeStyle(productsLayout, 'md:bottom');
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (footer) observer.observe(footer);
   }
 }
