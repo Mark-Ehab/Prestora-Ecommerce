@@ -170,21 +170,6 @@ export class ProductsComponent implements OnInit {
       this.filteredCategories.delete(categoryName);
       this.filteredCategories = new Set(this.filteredCategories);
     }
-
-    /* Check if selected categories are matched */
-    if (!this.filteredCategories.size) {
-      this.categoriesService.CategoriesFilterMatch.set(true);
-    } else {
-      if (
-        this.allProducts.filter((product) =>
-          this.filteredCategories.has(product.category.name)
-        ).length
-      ) {
-        this.categoriesService.CategoriesFilterMatch.set(true);
-      } else {
-        this.categoriesService.CategoriesFilterMatch.set(false);
-      }
-    }
   }
 
   /*-----------------------------------------------------------------------------
@@ -206,21 +191,6 @@ export class ProductsComponent implements OnInit {
     } else {
       this.filteredBrands.delete(brandName);
       this.filteredBrands = new Set(this.filteredBrands);
-    }
-
-    /* Check if selected brands are matched */
-    if (!this.filteredBrands.size) {
-      this.brandsService.brandsFilterMatch.set(true);
-    } else {
-      if (
-        this.allProducts.filter((product) =>
-          this.filteredBrands.has(product.brand.name)
-        ).length
-      ) {
-        this.brandsService.brandsFilterMatch.set(true);
-      } else {
-        this.brandsService.brandsFilterMatch.set(false);
-      }
     }
   }
 
